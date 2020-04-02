@@ -326,7 +326,7 @@ void CRYGenerator::genEvent(std::vector<CRYParticle*> *retList) {
 
       double u,v,w;
       w=-_cosThetaPdfs[idSec]->draw(_utils,sBin); //SAS comment the viewing vector
-    
+      w=0.5; //SAS Comment 2020
        // w = ; // changed by SAS 27/11 
       double maxV=sqrt(1.0-w*w);
     //  double rand_num = _utils->randomFlat(); //SAS comment: random num gen 
@@ -345,7 +345,7 @@ void CRYGenerator::genEvent(std::vector<CRYParticle*> *retList) {
       v=maxV*sin(tphi);
       u=maxV*cos(tphi);
       
-      std::cout << "\n(u, v, w) : " << "( " << u << " , " << v << " , " << w << " )"  << endl;
+     // std::cout << "\n(u, v, w) : " << "( " << u << " , " << v << " , " << w << " )"  << endl;
       
       
       // make secondary and add it to the list

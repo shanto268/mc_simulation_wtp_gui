@@ -34,6 +34,8 @@
 #include "B4aEventAction.hh"
 #include "B4DetectorConstruction.hh"
 
+#include "G4Material.hh" //New Added SAS 2020
+
 #include "G4Step.hh"
 #include "G4StepPoint.hh"
 #include "G4Event.hh"
@@ -96,7 +98,7 @@ void B4aSteppingAction::UserSteppingAction(const G4Step* step)
   auto depth = touchable->GetHistory()->GetDepth();
   if(depth==0) return;
 
-  // PrintStep(step);   //  active this for debugging....
+   PrintStep(step);   //  active this for debugging....
 
   if(depth<3) return;  // 0) World, 1) SC8,  2) Station1  3) Tray1,  4) sBar
                        //                                 3) RefPlane1
@@ -190,15 +192,20 @@ void B4aSteppingAction::PrintStep(const G4Step* step) {
   auto thisPhysical = touchable->GetVolume(); // mother
   auto thisCopyNo = thisPhysical->GetCopyNo();
   auto thisName = thisPhysical->GetName();
-
   auto worldPos = preStepPoint->GetPosition();
   auto localPos
     = touchable->GetHistory()->GetTopTransform().TransformPoint(worldPos);
 
   auto just_enterd=preStepPoint->GetStepStatus();
+  auto stepLength = step->GetStepLength();  // SAS 2020 Added
+  G4Material* material = step->GetPreStepPoint()->GetMaterial(); // SAS 2020 Added
+  auto materialName = material->GetName();//SAS 2020 Added
+  auto postCopyNo = step->GetPostStepPoint()->GetTouchable()->GetVolume()->GetCopyNo(); // SAS Added 2020
+  auto postName = step->GetPostStepPoint()->GetTouchable()->GetVolume()->GetName(); // SAS Added 2020
 
   // energy deposit
   auto edep = step->GetTotalEnergyDeposit();
+
 
   G4StepPoint* point1 = step->GetPreStepPoint();
   G4ThreeVector pos1 = point1->GetPosition();
@@ -214,20 +221,24 @@ void B4aSteppingAction::PrintStep(const G4Step* step) {
   G4String particleName= particle ->GetParticleName();
   G4double kinEnergy=dynamicParticle->GetKineticEnergy();
 
-  std::cout<<" tk "<<track->GetTrackID();
-  std::cout<<" step "<<steps;;
-  std::cout<<"    "<<particleName;
-  std::cout<<" ke "<<kinEnergy;
-  std::cout<<" edep "<<edep;
-  std::cout<<" xyz "<<xx<<"  "<<yy<<"  "<<zz;
-  std::cout<<" depth "<<depth;
-  std::cout<<"   "<<thisName;
-  std::cout<<"   "<<thisCopyNo;;
-  std::cout<<" ( "<<motherName;
-  std::cout<<"  "<<motherCopyNo<<" )";;
-  std::cout<<"  status="<<just_enterd;
-  std::cout<<"  fGeomBoundary="<<fGeomBoundary;
-  std::cout<<" "<<std::endl;
+  
+  //std::cout<<" tk "<<track->GetTrackID();
+  //std::cout<<" step "<<steps;;
+  std::cout<<" "<<particleName;
+  std::cout<<"  ke: "<<kinEnergy;
+  std::cout<<"  edep: "<<edep;
+  std::cout<<"  (x,y,z): ("<<xx<<", "<<yy<<", "<<zz<<")";
+  std::cout<<"  depth: "<<depth;
+  std::cout<<"  prestep loc: ("<<thisName;
+  std::cout<<" "<<thisCopyNo<<")";;
+  std::cout<<"  poststep loc: ("<<postName;
+  std::cout<<" "<<postCopyNo<<")";;
+  std::cout<<" mother: ("<<motherName;
+  std::cout<<"  "<<motherCopyNo<<")";;
+  std::cout<<"  steplength: "<<stepLength << " cm"; // SAS Added 2020
+//  std::cout<<"  status="<<just_enterd;
+//  std::cout<<"  fGeomBoundary="<<fGeomBoundary;
+  std::cout<<" Material: "<< materialName <<std::endl; //SAS Added 2020
   return ;
 }
 

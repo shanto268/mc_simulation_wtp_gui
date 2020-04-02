@@ -159,7 +159,7 @@ void MuonTree::analyze(SC8edep edepSc8, vector<SC8Particle> part,
   double ecut=1.0; // cut on edep in each layer (in MeV)
   mTrigger=0;
   for(int i=0; i<4; i++) {
-      cout << "Edep of tray " << i << " is " << edepSc8.TRAY[i] << endl;
+      //cout << "Edep of tray " << i << " is " << edepSc8.TRAY[i] << endl;
       if(edepSc8.TRAY[i]>ecut) mTrigger++; 
   }
   if(mTrigger==4) trig=true; 
