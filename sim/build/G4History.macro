@@ -39,7 +39,7 @@
 /vis/viewer/refresh
 /vis/viewer/zoom 1.4
 /vis/viewer/refresh
-/vis/viewer/zoom 1.
+/vis/viewer/zoom 25
 /vis/viewer/refresh
 /control/execute gui.mac
 /gui/addMenu file File
@@ -71,20 +71,11 @@
 /run/printProgress 100
 /run/beamOn 1
 /vis/scene/notifyHandlers scene-0
-/vis/viewer/set/picking true
+/vis/viewer/set/style s
 /vis/viewer/refresh
-/vis/set/touchable World 0
-/vis/set/touchable World 0 Tower 0
-/vis/set/touchable World 0 Tower 0
-/vis/set/touchable World 0 Tower 0
-/vis/set/touchable World 0 Tower 0
-/vis/set/touchable World 0 Tower 0
-/vis/set/touchable World 0 Tower 0
-/vis/set/touchable World 0 Tower 0
-/vis/viewer/set/picking false
+/vis/viewer/set/hiddenEdge 0
 /vis/viewer/refresh
-/vis/viewer/set/picking true
+/vis/viewer/set/style w
 /vis/viewer/refresh
-/vis/set/touchable World 0 Tower 0
-/vis/viewer/set/picking false
+/vis/viewer/set/hiddenEdge 0
 /vis/viewer/refresh
