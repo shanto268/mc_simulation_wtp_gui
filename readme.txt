@@ -2,7 +2,8 @@ To compile:
 % import CRY variables
 . muonSetup.sh
 cd build/
-make clean
+% delete everything inside build directory
+rm *
 cmake ..
 make
 ./exampleb4a
