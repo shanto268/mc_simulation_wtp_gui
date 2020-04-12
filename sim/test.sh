@@ -17,7 +17,7 @@ make
 if [ $1 == "cb" ]
 then
 echo -e  Batch mode
-. runG4CRY_batch.sh
+. run_batch.sh
 #cp muonTree01.root muonTree01_angle_$2_w_89.root
 #mv muonTree01_angle_$2_w_89.root /Users/ttumuon/hep/g4/g4user/MuonSC8/rp/v5/sim/experimen1_files/
 #echo Moved the file!

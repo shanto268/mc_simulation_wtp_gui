@@ -207,7 +207,7 @@ void MuonTree::analyze(SC8edep edepSc8, vector<SC8Particle> part,
      }
   }
 
-  mNBar=31;
+  mNBar=10;
   for(int i=0; i<mNBar; i++) {
     int j=i+0;
     mEdepS1[i]=edepSc8.SBAR[j];
@@ -215,19 +215,19 @@ void MuonTree::analyze(SC8edep edepSc8, vector<SC8Particle> part,
   }
  
   for(int i=0; i<mNBar; i++) {
-    int j=i+31;
+    int j=i+10;
     mEdepS2[i]=edepSc8.SBAR[j];
     mSteplS2[i]=edepSc8.MStepBar[j]; //changed by SAS 29/11
   }
  
   for(int i=0; i<mNBar; i++) {
-    int j=i+62;
+    int j=i+20;
     mEdepS3[i]=edepSc8.SBAR[j];
     mSteplS3[i]=edepSc8.MStepBar[j]; //changed by SAS 29/11
   }
  
   for(int i=0; i<mNBar; i++) {
-    int j=i+93;
+    int j=i+30;
     mEdepS4[i]=edepSc8.SBAR[j];
     mSteplS4[i]=edepSc8.MStepBar[j]; //changed by SAS 29/11
   }

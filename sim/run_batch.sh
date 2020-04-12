@@ -17,4 +17,4 @@ export CRYRANDOMSEED=1236
 # env
 export DYLD_LIBRARY_PATH=/Applications/root_v6.18.00/lib
 
-/Users/raulperezjr/hep/MuonSC8/mc/v4/sim/Darwin-clang/exampleB4a -m runG4CRYbatch_run01.mac
+/Users/sshanto/hep/wtp_mc/monte_carlo_sim_muon_detector-wtp-master/sim/build/exampleB4a -m batch_run.mac
