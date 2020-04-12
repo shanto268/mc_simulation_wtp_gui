@@ -98,7 +98,7 @@ void B4aSteppingAction::UserSteppingAction(const G4Step* step)
   auto depth = touchable->GetHistory()->GetDepth();
   if(depth==0) return;
 
-   PrintStep(step);   //  active this for debugging....
+ //  PrintStep(step);   //  active this for debugging....
 
   if(depth<3) return;  // 0) World, 1) SC8,  2) Station1  3) Tray1,  4) sBar
                        //                                 3) RefPlane1

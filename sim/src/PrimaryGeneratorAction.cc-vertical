@@ -179,8 +179,6 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   vect->clear();
   gen->genEvent(vect);
 
-  std::cout<<"CRY::Simulation time in seconds: "<<gen->timeSimulated()<<std::endl; //SAS 2O20
-
   // apply momentum cut...
   int acceptThis=0;
   for ( unsigned j=0; j<vect->size(); j++) {
@@ -203,7 +201,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     particleName=CRYUtils::partName((*vect)[j]->id());
 
     //....debug output  
-/*    cout << "  "          << particleName << " "
+    /*cout << "  "          << particleName << " "
          << "charge="      << (*vect)[j]->charge() << " "
          << setprecision(4)
          << "energy (MeV)=" << (*vect)[j]->ke()*MeV << " "
@@ -212,7 +210,9 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
          << " " << "direction cosines "
          << G4ThreeVector((*vect)[j]->u(), (*vect)[j]->v(), (*vect)[j]->w())
          << " " << endl;
-*/
+     */
+
+
 
     // G4double xvtx=(*vect)[j]->x()*m + xshift;  
     // G4double yvtx=(*vect)[j]->y()*m + yshift;
@@ -220,34 +220,51 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 
     // calculate the starting point of particles which end up near the detector
 
-    G4double xvtx=(*vect)[j]->x()*m;  
-    G4double yvtx=(*vect)[j]->y()*m;
-    G4double zvtx=(*vect)[j]->z()*m;
+  // sas commented out 2020
+  //  G4double xvtx=(*vect)[j]->x()*m;  
+  //  G4double yvtx=(*vect)[j]->y()*m;
+  //  G4double zvtx=(*vect)[j]->z()*m;
 
+  G4double xvtx= 3000*cm;  
+  G4double yvtx= 300*cm;
+  G4double zvtx= 5500*cm;
   // sizes are copyr from B4DetectorConstruction.cc...
   auto worldSizeX = 6000.0*cm ;
   auto worldSizeY = 3000.0*cm ;
-  auto worldSizeZ = 6000.0*cm ;  
-    
+  auto worldSizeZ = 6000.0*cm ;   
+  
+
+  // SAS 2020
+  //auto xdx = (*vect)[j]->u();
+  //auto ydy = (*vect)[j]->v();
+  //auto zdz = (*vect)[j]->w();
+
+  auto xdx = 0;
+  auto ydy = 0;
+  auto zdz = 0;
     // move particle back to the world boundary...
     double deltaL=worldSizeZ/1000.0;
     for (int i=0; i<100000; i++) {
-      double x= xvtx-(*vect)[j]->u() * deltaL;
-      double y= yvtx-(*vect)[j]->v() * deltaL;
-      double z= zvtx-(*vect)[j]->w() * deltaL;
+      double x= xvtx- (xdx * deltaL);
+      double y= yvtx- (ydy * deltaL);
+      double z= zvtx- (zdz * deltaL);
       if(abs(x) > worldSizeX ) break;
       if(abs(y) > worldSizeY ) break;
       if(abs(z) > worldSizeZ ) break;
       xvtx=x; yvtx=y; zvtx=z;
     }
 
-    // std::cout<<"  xvtx "<<xvtx<<"  yvtx  "<<yvtx<<"  zvtx  "<<zvtx<<std::endl;
-
+  //  std::cout<<"  xvtx "<<xvtx<<"  yvtx  "<<yvtx<<"  zvtx  "<<zvtx<<std::endl;
+    
     particleGun->SetParticleDefinition(particleTable->FindParticle((*vect)[j]->PDGid()));
     particleGun->SetParticleEnergy((*vect)[j]->ke()*MeV);
-    // particleGun->SetParticlePosition(G4ThreeVector((*vect)[j]->x()*m, (*vect)[j]->y()*m, (*vect)[j]->z()*m));
-    particleGun->SetParticlePosition(G4ThreeVector(xvtx, yvtx, zvtx));
-    particleGun->SetParticleMomentumDirection(G4ThreeVector((*vect)[j]->u(), (*vect)[j]->v(), (*vect)[j]->w()));
+    particleGun->SetParticlePosition(G4ThreeVector((*vect)[j]->x()*m, (*vect)[j]->y()*m, (*vect)[j]->z()*m));
+    particleGun->SetParticlePosition(G4ThreeVector(xvtx, yvtx, zvtx));  //SAS UPDATE (vertical)
+//    particleGun->SetParticlePosition(G4ThreeVector(-42660.4,6612.37, 59972.2));   //SAS UPDATE 2020
+  //  particleGun->SetParticleMomentumDirection(G4ThreeVector((*vect)[j]->u(), (*vect)[j]->v(), (*vect)[j]->w()));
+ //   std::cout<<" angle: " << angle;
+    particleGun->SetParticleMomentumDirection(G4ThreeVector(0,0,-1));  //SAS UPDATE 2020 (vertical)
+ //   particleGun->SetParticleMomentumDirection(G4ThreeVector((xdx, ydy, zdz)));
     particleGun->SetParticleTime((*vect)[j]->t());
     particleGun->GeneratePrimaryVertex(anEvent);
     delete (*vect)[j];

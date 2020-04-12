@@ -54,10 +54,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <iostream>
 #include <assert.h>
 #include <math.h>
-#include <stdio.h>
 #include <stdlib.h>  // For Ubuntu Linux
-
-using namespace std;
 
 CRYGenerator::CRYGenerator(CRYSetup *setup) {
 
@@ -298,21 +295,13 @@ void CRYGenerator::genEvent(std::vector<CRYParticle*> *retList) {
       //
       // could use this, which uses the latPdf to generate flat distribution
       //
-      //double xPosSecondary= _latPdfs[idSec]->draw(_utils,pBin);
-      //double yPosSecondary= _latPdfs[idSec]->draw(_utils,pBin);;
-      
-      //double xPosSecondary= 0.7;  // changed by SAS 27/11
-      //double yPosSecondary= 0.8;  // changed by SAS 27/11  
-        
-    
+      double xPosSecondary= _latPdfs[idSec]->draw(_utils,pBin);
+      double yPosSecondary= _latPdfs[idSec]->draw(_utils,pBin);;
       //
       // instead just sample directly
       //
-      double xPosSecondary=_utils->randomFlat(-0.5*_boxSize,0.5*_boxSize);
-      double yPosSecondary=_utils->randomFlat(-0.5*_boxSize,0.5*_boxSize);
-      
-    //  std::cout << "The xPos is : " << xPosSecondary << endl;
-    //  std::cout << "The yPos is : " << yPosSecondary << endl;    
+      //double xPosSecondary=_utils->randomFlat(-0.5*_boxSize,0.5*_boxSize);
+      //double yPosSecondary=_utils->randomFlat(-0.5*_boxSize,0.5*_boxSize);
 
       //....only keep this secondary if it is inside the user-selected box
       if ( fabs(xPosSecondary)>0.5*_subboxSize) continue;
@@ -325,28 +314,12 @@ void CRYGenerator::genEvent(std::vector<CRYParticle*> *retList) {
       int charge=(int)_chargePdfs[idSec]->draw(_utils,sBin);
 
       double u,v,w;
-      w=-_cosThetaPdfs[idSec]->draw(_utils,sBin); //SAS comment the viewing vector
-      w=0.5; //SAS Comment 2020
-       // w = ; // changed by SAS 27/11 
-      double maxV=sqrt(1.0-w*w);
-    //  double rand_num = _utils->randomFlat(); //SAS comment: random num gen 
-    //  double rand_num = 0.125; //SAS comment: random num
-    //  double tphi=rand_num*2.0*M_PI; //changed by SAS 26/11
-    //    double tphi = 0.5*M_PI; //SAS comment: 0 deg
-      double tphi= 0.7853981633974483; //SAS comment: 45 deg
-    //  double tphi= 0.9599310885968813; //SAS comment: 55 deg
-    //  double tphi= 1.1344640137963142; //SAS comment: 65 deg
-      //double tphi= 1.3089969389957472; //SAS comment: 75 deg
-      //  std::cout << "w vector: " << w << endl;
-    //  std::cout << "\nThe angle is: " << tphi*(180.0/M_PI) << " deg"<< endl;
-     // std::cout << "The random number is: " << rand_num << endl; 
-     // std::cout <<"\n" ;
+      w=_cosThetaPdfs[idSec]->draw(_utils,sBin);
 
+      double maxV=sqrt(1.0-w*w);
+      double tphi=_utils->randomFlat()*2.0*M_PI;
       v=maxV*sin(tphi);
       u=maxV*cos(tphi);
-      
-     // std::cout << "\n(u, v, w) : " << "( " << u << " , " << v << " , " << w << " )"  << endl;
-      
       
       // make secondary and add it to the list
       CRYParticle *daug=new CRYParticle(idSec,charge,keSecondary);
