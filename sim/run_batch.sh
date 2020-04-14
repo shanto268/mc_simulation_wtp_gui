@@ -6,7 +6,6 @@
 #$-e logs/$JOB_NAME.stderr$JOB_ID
 #$-q serial
 #$-P grid
-
 #   XSHFIT 0 for camera 1,  -40000 in mm= -40mm for camera 2, 40000 for camera 3
 export G4CRYXSHIFT=0     # in mm
 export G4CRYYSHIFT=0     # in mm

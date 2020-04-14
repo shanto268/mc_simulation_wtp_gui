@@ -71,3 +71,27 @@
 /run/printProgress 100
 /run/beamOn 100
 /vis/scene/notifyHandlers scene-0
+/vis/viewer/set/picking true
+/vis/viewer/refresh
+/vis/viewer/set/picking false
+/vis/viewer/refresh
+/vis/viewer/set/picking true
+/vis/viewer/refresh
+/vis/set/touchable World 0
+/vis/viewer/set/picking false
+/vis/viewer/refresh
+/run/beamOn 1
+/vis/viewer/set/picking true
+/vis/viewer/refresh
+/vis/viewer/set/picking false
+/vis/viewer/refresh
+/vis/viewer/set/picking true
+/vis/viewer/refresh
+/vis/viewer/set/picking false
+/vis/viewer/refresh
+/vis/viewer/set/picking true
+/vis/viewer/refresh
+/vis/viewer/set/picking false
+/vis/viewer/refresh
+/vis/viewer/set/picking true
+/vis/viewer/refresh

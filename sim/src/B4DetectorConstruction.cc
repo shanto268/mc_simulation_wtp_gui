@@ -896,12 +896,12 @@ auto RefPlane1LV
 
   for (int i=0; i<nofBars; i++) {
     double yval=-TraySizeY/2+BarSizeY/2.0/*+AirGap*/+(BarSizeY/*+AirGap*/)*float(i);
-    std::cout<<"  red bars:  "<<i<<" yval "<<yval<<std::endl;                    
+  //  std::cout<<"  red bars:  "<<i<<" yval "<<yval<<std::endl;                    
     new G4PVPlacement(
                  scintRot,                // no rotation
                  G4ThreeVector(0.0,yval,0.0), // its position
                  sBARLV1,            // its logical volume                         
-                 "sBAR",            // its name
+                 "sBAR_bottom",            // its name
                  Tray1LV,          // its mother  volume
                  false,            // no boolean operation
                  i,                // copy number
@@ -912,12 +912,12 @@ auto RefPlane1LV
 
   for (int i=0; i<nofBars-1; i++) {
     double yval=-TraySizeY/2+BarSizeY+(BarSizeY)*float(i);
-    std::cout<<" blue bars:  "<<i<<" yval "<<yval-1.5<<std::endl;                    
+  //  std::cout<<" blue bars:  "<<i<<" yval "<<yval-1.5<<std::endl;                    
     new G4PVPlacement(
                  0,                // no rotation
                  G4ThreeVector(0.0,yval,0.0), // its position
                  sBARLV2,            // its logical volume                         
-                 "sBAR",            // its name
+                 "sBAR_top",            // its name
                  Tray1LV,          // its mother  volume
                  false,            // no boolean operation
                  i,                // copy number
