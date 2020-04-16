@@ -28,7 +28,8 @@
 
 using namespace std;
 
-//   define a struct globally.
+//Define a struct globally.
+//TrackPoint Structure defined  
 struct TrackPoint{
    TVector3 x3;
    TVector3 p3;
@@ -149,9 +150,9 @@ AnaMuon::AnaMuon(TFile * fout) {
    histo1D["Theta"]->GetXaxis()->SetTitle("Theta Degrees of incidence with detector");//rp-added for setting x axis label
    histo1D["Theta"]->GetYaxis()->SetTitle("Number of Events");//rp-added for setting y axis label
    histo1D["Thetaxz"]=new TH1D("Thetaxz","degree",100,0.,90.);
-   histo1D["Theta17"]=new TH1D("Theta17","degree",100,0.,90.);
-   histo1D["Theta915"]=new TH1D("Theta915","degree",100,0.,90.);
-   histo1D["Thetat"]=new TH1D("Thetat","degree",100,0.,90.);
+   histo1D["Theta17"]=new TH1D("Theta17","degree",100,0.,90.);//<why is this added>->SAS
+   histo1D["Theta915"]=new TH1D("Theta915","degree",100,0.,90.);//<why is this added>->SAS
+   histo1D["Thetat"]=new TH1D("Thetat","degree",100,0.,90.); //<why is this added>->SAS
    histo1D["Poftheta1"]=new TH1D("Poftheta1","Gen P (GeV)",100,0.,100.);
    histo1D["Poftheta2"]=new TH1D("Poftheta2","Gen P (GeV)",100,0.,100.);
    histo1D["Poftheta3"]=new TH1D("Poftheta3","Gen P (GeV)",100,0.,100.);
@@ -250,27 +251,28 @@ AnaMuon::~AnaMuon() {} ;
 //AnaMuon analyze method definition
 //---------------------------------------------------------------------
 void AnaMuon::analyze(sc8muontree ev) {
-   double zCry;
-   double xmax,xmin,ymax,ymin;
+   double zCry; //<dont know what this means>->SAS
+   double xmax,xmin,ymax,ymin; //<dont know what this means>->SAS
 
-   // reconstruct tracks...
-   vector<TrackPoint> recoedTracks=reconstructTracks(ev);
-    xe.clear();
-    ang.clear();
-    xe2.clear();
-    ang2.clear();
-    ofstream myfile;
-//	myfile.open ("theta_file.txt", ios_base::app);
+   //reconstruct tracks...
+   vector<TrackPoint> recoedTracks = reconstructTracks(ev);  //Sends sc8muontree object to reconstructTracks method of AnaMuon object
+   //removes all elements from the following vectors
+   xe.clear();
+   ang.clear();
+   xe2.clear();
+   ang2.clear();
+   //output file type variable defined <reason unknown>->SAS
+   ofstream myfile;
+
+   //myfile.open ("theta_file.txt", ios_base::app);
    for(int i=0; i<ev.nGenPar; i++) {
     // double aa[ev.nGenPar];
-    // aa[i]=4*tan(1)*sqrt(pow(ev.GenParPx[i],2)+pow(ev.GenParPy[i],2))/(pow(ev.GenParPx[i],2)+pow(ev.GenParPy[i],2)+pow(ev.GenParPz[i],2));
+//aa[i]=4*tan(1)*sqrt(pow(ev.GenParPx[i],2)+pow(ev.GenParPy[i],2))/(pow(ev.GenParPx[i],2)+pow(ev.GenParPy[i],2)+pow(ev.GenParPz[i],2));
+
+     //filling Histograms  
      histo1D["GenP"]->Fill(ev.GenParP[i]);
      histo1D["GenId"]->Fill(ev.GenParId[i]);
      histo1D["Theta"]->Fill(atan(sqrt(pow(ev.GenParPx[i],2)+pow(ev.GenParPy[i],2))/abs(ev.GenParPz[i]))/(4*atan(1))*180.);
-  //   cout<<"Theta values "<< atan(sqrt(pow(ev.GenParPx[i],2)+pow(ev.GenParPy[i],2))/abs(ev.GenParPz[i]))/(4*atan(1))*180.0 <<"\n"; //rp - Theta 	 
-	 //RP UPDATE 02/17
-//	 double theta_plt = atan(sqrt(pow(ev.GenParPx[i],2)+pow(ev.GenParPy[i],2))/abs(ev.GenParPz[i]))/(4*atan(1))*180.0;
-//	 myfile << theta_plt << "\n";
      histo1D["Thetaxz"]->Fill(atan(abs(ev.GenParPx[i]/ev.GenParPz[i]))/(4*atan(1))*180.);
      if (atan(sqrt(pow(ev.GenParPx[i],2)+pow(ev.GenParPy[i],2))/abs(ev.GenParPz[i]))/(4*atan(1))*180.<=22.5) {
      histo1D["Poftheta1"]->Fill(ev.GenParP[i]);
@@ -293,7 +295,7 @@ void AnaMuon::analyze(sc8muontree ev) {
 
     
      //histo1D["Thetay"]->Fill(acos(ev.GenParPy[i]/ev.GenParPz[i]));
-      double Pmev=ev.GenParP[i]*1000.0;
+     double Pmev=ev.GenParP[i]*1000.0;
      histo1D["GenP4"]->Fill(Pmev);
      histo1D["GenP5"]->Fill(Pmev);
      histo2D["GenXY"]->Fill(ev.GenParVx[i],ev.GenParVy[i]);
@@ -310,9 +312,10 @@ void AnaMuon::analyze(sc8muontree ev) {
      histo1D["HitP3"]->Fill(Pmev2);
      histo1D["GenP3"]->Fill(ev.GenParP[i]);
      histo2D["HitXY"]->Fill(ev.HitsR1Vx[i],ev.HitsR1Vy[i]);
+     //SAS<need to understand how the TVectors are working>
      // save the first hit in the refence plane...
      if(i==0) {
-       if(abs(ev.HitsR1Vx[i])<25.0 && abs(ev.HitsR1Vz[i])<25.0) {
+       if(abs(ev.HitsR1Vx[i])<25.0 && abs(ev.HitsR1Vz[i])<25.0) { //< less than 25 >->SAS
          TVector3 xx(ev.HitsR1Vx[i],ev.HitsR1Vy[i],ev.HitsR1Vz[i]);
          TVector3 pp(ev.HitsR1Px[i],ev.HitsR1Py[i],ev.HitsR1Pz[i]);
          tkRef.x3=xx;
@@ -321,6 +324,7 @@ void AnaMuon::analyze(sc8muontree ev) {
      }
    }
 
+/*
 //   RPs code...
    for(int i=0; i<31; i++) {
      // nhits=0;
@@ -329,16 +333,16 @@ void AnaMuon::analyze(sc8muontree ev) {
      double edep2=ev.EdepS2[i];
      double edep3=ev.EdepS3[i];
      double edep4=ev.EdepS4[i];
-     if(edep1>7.0) {
+     if(edep1>0.0) { //< why 7?>->SAS
          histo1D["L0Ch"]->Fill(i);
      }
-     if(edep2>7.0) {
+     if(edep2>0.0) {
          histo1D["L1Ch"]->Fill(i);
      }
-     if(edep3>7.0) {
+     if(edep3>0.0) {
          histo1D["L2Ch"]->Fill(i);
      }
-     if(edep4>7.0) {
+     if(edep4>0.0) {
          histo1D["L3Ch"]->Fill(i);
      }
 
@@ -346,11 +350,9 @@ void AnaMuon::analyze(sc8muontree ev) {
 
 //   end of RP on number of hits.
 // muon tracks ... rp
+*/
 
    int nhits=0;
-   /*if(ev.EdepS2[1]>0.0){
-    histo1D["Layer2Edep1"]->Fill(ev.EdepS2[1]);
-   }*/
    double xx=0;
    for(int i=0; i<31; i++) {
     // nhits=0;
@@ -363,7 +365,7 @@ void AnaMuon::analyze(sc8muontree ev) {
        histo1D["Layer1Edep"]->Fill(edep);
        histo1D["Layer1ChId"]->Fill(double(i),edep);
        nhits=nhits+1;
-        }
+        } //end of layer 1
       if(edep2>0.0) {
        histo1D["Layer2Edep"]->Fill(edep2);
        histo1D["Layer2ChId"]->Fill(double(i),edep2);
@@ -389,17 +391,20 @@ void AnaMuon::analyze(sc8muontree ev) {
        else if(atan(abs(ev.GenParPx[i]/ev.GenParPz[i]))/(4*atan(1))*180.>24.5 && atan(abs(ev.GenParPx[i]/ev.GenParPz[i]))/(4*atan(1))*180.<25.5){
         histo1D["Layer2Edepcur"]->Fill(edep2);
        } 
-     }
-     }
+      }
+     } //end of layer 2
+
      if(edep3>0.0) {
        histo1D["Layer3Edep"]->Fill(edep3);
        histo1D["Layer3ChId"]->Fill(double(i),edep3);
-     }
+     } //end of layer 3
+
     if(edep4>0.0) {
        histo1D["Layer4Edep"]->Fill(edep4);
        histo1D["Layer4ChId"]->Fill(double(i),edep4);
-     }
-   } // end of loop over scinti bars..   
+     } //end of layer 4
+
+   } // end of loop for 4 layers
    histo1D["Layer2Edep1"]->Fill(xx);
   if(nhits>0) {
      for(int i=0; i<ev.nGenPar; i++) {

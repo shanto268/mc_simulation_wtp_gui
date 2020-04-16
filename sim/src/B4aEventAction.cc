@@ -68,7 +68,7 @@ B4aEventAction::~B4aEventAction()
 void B4aEventAction::BeginOfEventAction(const G4Event* /*event*/)
 {  
   // initialization per event
-  for(int i=0; i<50; i++) {
+  for(int i=0; i<124; i++) {
         edepSc8.SBAR[i]=0.0;
         edepSc8.MStepBar[i]=0.0; //changed by SAS 29/11
         }

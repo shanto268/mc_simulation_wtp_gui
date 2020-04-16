@@ -264,6 +264,12 @@ void MuonTree::analyze(SC8edep edepSc8, vector<SC8Particle> part,
      histo1D["trig_SteplT2"]->Fill(mSteplT2);//changed by SAS 29/11
      histo1D["trig_SteplT2"]->GetXaxis()->SetTitle("Muon Step Length [mm]");//changed by SAS 29/11
      histo1D["trig_SteplT2"]->GetYaxis()->SetTitle("Number of Events");//changed by SAS 29/11
+     histo1D["trig_SteplT3"]->Fill(mSteplT3); //changed by SAS 29/11
+     histo1D["trig_SteplT3"]->GetXaxis()->SetTitle("Muon Step Length [mm]"); //changed by SAS 29/11
+     histo1D["trig_SteplT3"]->GetYaxis()->SetTitle("Number of Events");//changed by SAS 29/11
+     histo1D["trig_SteplT4"]->Fill(mSteplT4);//changed by SAS 29/11
+     histo1D["trig_SteplT4"]->GetXaxis()->SetTitle("Muon Step Length [mm]");//changed by SAS 29/11
+     histo1D["trig_SteplT4"]->GetYaxis()->SetTitle("Number of Events");//changed by SAS 29/11
 	 }
   
   histo1D["all_EdepT1"]->Fill(mEdepT1);
