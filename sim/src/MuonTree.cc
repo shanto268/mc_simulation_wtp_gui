@@ -68,7 +68,6 @@ MuonTree::MuonTree(int dummy){
    histo1D["trig_SteplT4"]=new TH1D("trig_SteplT4","Muon Step Length in T4 (trig) (mm)",100,0.,75.0); //changed by SAS 27/11
 
    histo1D["trig_Tray1Muonhits"]=new TH1D("trig_Tray1Muonhits","number of hits in Tray 1",100,0.,50.0);
-
    histo1D["trig_muontracklengthtank"]=new TH1D("trig_muontracklengthtank","Muon TKLen in Tank",100.0,0.,100.0);  
    histo1D["trig_muonEdepinwater"]=new TH1D("trig_muonEdepinwater","Muon Edep in water",100.0,0.,100.0);  
 //   histo1D["trig_EdepWater"]=new TH1D("trig_EdepWater","Edep in Water (trig)",100,0.,50.0);

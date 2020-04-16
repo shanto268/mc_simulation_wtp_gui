@@ -17,5 +17,5 @@ export CRYRANDOMSEED=1234i
 # env
 export DYLD_LIBRARY_PATH=/Applications/root_v6.16.00/lib
 
-/Users/ttumuon/hep/g4/g4user/MuonSC8/rp/v5/sim/Darwin-clang/exampleB4a
+/Users/sshanto/hep/wtp_mc/monte_carlo_sim_muon_detector-wtp-master/sim/build/exampleB4a
 

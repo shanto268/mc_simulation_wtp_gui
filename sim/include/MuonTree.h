@@ -17,7 +17,7 @@
 #include "SC8DataStruc.h"
 
 #define MAXGENPAR  1000
-#define MAXCHAN   100
+#define MAXCHAN   200
 
 class MuonTree{
    public:
