@@ -1,4 +1,4 @@
-// c++  `root-config --cflags` -o muonAnalysis3 sc8muontree.cc muonAnalysis3_newsh.cc `root-config --glibs`
+// c++  `root-config --cflags` -o muonAnalysis4 sc8muontree.cc muonAnalysis4.cc `root-config --glibs`
 //
 //
 #include <iostream>
@@ -687,52 +687,52 @@ vector<TrackPoint>  AnaMuon::reconstructTracks(sc8muontree ev ) {
    // cout<<"Slope of X="<<xslope<<endl;
 }  // end of AnaMuon::reconstructTracks
 
+
 // ==========================================================================
 int main(int argc, char **argv) {
 
+   // Reading input root file and creating output root file 
    string inputFileName=argv[1];
    string outputFileName=argv[2];
    cout<<"Input file name="<<inputFileName<<endl;
    cout<<"Output file name="<<outputFileName<<endl;
-   //string outputFileName="o9-fem2ny.root";
    TFile *fout = new TFile(outputFileName.c_str(),"recreate");
-
+   
+   //Constructing a AnaMuon object 
    AnaMuon ana(fout);
 
-   // string inputFileName="../sim/muonTree01tubig2.root";
-   //string inputFileName="muonTree01-fe13m2.root";
-   // string inputFileName="muonTree01.root";
+   //Extracting ntuple data from input file
    TFile fin(inputFileName.c_str());
-
-   //   string treeName=inputFileName+":/tree";
-   //TDirectory * dir = (TDirectory*) fin.Get(treeName.c_str());
-
-   // cout<<" dir: "<<dir<<endl;
-
    TTree * tree;
    fin.GetObject("tree",tree);
 
-   //   print out ntuple data structure...
+   //print out ntuple data structure...
    tree->Print();
 
+   //Creating sc8muontree object
    sc8muontree ev;
+   //Calling Init method from sc8muontree object
+   //Initializes all the root branch plots to be displayed
    ev.Init(tree);
 
-   int nentries = tree->GetEntriesFast();
-  
+   int nentries = tree->GetEntriesFast(); 
    cout<<"nentries  "<<nentries<<endl;
 
-    int nMax=1000000000;
-  // int nMax=100000;
+   int nMax=1000000000;
    int nn=0;
-   while ( ev.GetEntry(nn)){
+   while (ev.GetEntry(nn)){
        nn++;
        if(nn>nMax) break;
+       //Calling analyze method from ana and feeding sc8muontree object
+       //Purpose: does all required calculations and feeds the histograms
        ana.analyze(ev);
    } // end of event loop.
-
+    
+   //Calling endjob method from ana
+   //Purpose: creates and closes certain files <missing in implementation>
    ana.endjob();
 
+   //Create root file and end program
    fout->Write();
    fout->Close();
 
