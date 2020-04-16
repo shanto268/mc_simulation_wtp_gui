@@ -34,25 +34,29 @@ struct TrackPoint{
    TVector3 p3;
 };
 
+
 // ==========================================================================
 class AnaMuon {
    public:
+      //Constructors 
       AnaMuon(TFile * fout); 
       ~AnaMuon();
+      //public methods available
       void analyze(sc8muontree ev);
       void endjob();
 
    private:
-
+      //private methods
       vector<TrackPoint>  reconstructTracks(sc8muontree ev);
       vector<TrackPoint>  estimateXYatZ(vector<double> zPlane,TrackPoint tk );
-
+      //private members of non-primitive type (defined in ROOT libraries)
       std::map<std::string, TH1D*> histo1D;
       std::map<std::string, TH1D*>::iterator histo1Diter;
-
       std::map<std::string, TH2D*> histo2D;
       std::map<std::string, TH2D*>::iterator histo2Diter;
+      //output filenames array variable
       ofstream myfile[2]; 
+      //private instance variables needed for muon analysis
       double x22[31];  //SAS
       double x44[31];  //SAS
       double xme;
@@ -65,11 +69,15 @@ class AnaMuon {
       vector<double> ang2;
       
 };
+
+// ==========================================================================
 class Track {
    public:
+      //method
       Track(double _x, double _y, double _xs, double _ys) {
         x=_x; y=_y; xs=_xs; ys=_ys;
       };
+      //member variable
       double x;    // at z=0
       double y;    // at z=0
       double xs;   // xslope = (x0-x2)/(z0-z2)
@@ -77,27 +85,34 @@ class Track {
      // vector<Hit> hits;
 };
 
-// =========================================  zzanaMuon
 
+//  AnaMuon Constructor Definition (Overload)
+// ==========================================================================
 AnaMuon::AnaMuon(TFile * fout) {
-  std::string filename[2]= {"example.txt","example1.txt",/*"example2.txt"*/};
-
+   //creates the two output texts files <reason unknown? may be debugging> ->SAS
+   std::string filename[2]= {"example.txt","example1.txt"};
    for (int i = 0; i < 2; i++)
 	{
 		myfile[i].open(filename[i].c_str());
 	} 
+
+   //31 horizontal sBars initialized to 0
    for (int i=0 ;i<31 ;i++){
           x22[i]=0;
           x44[i]=0;
    }
+   //variables initialized to 0
    printHitFlag=0;
    event=1;
    xme=0;
    angle=0.0;
+   //removing all elements from the vectors
    xe.clear();
    ang.clear();
+   
+   //<some root command that I am not familiar with> ->SAS
    fout->cd();
-   //new code: start
+   //sets up histogram with titles, axes and labels
    histo1D["nHits"]=new TH1D("nHits","numbe of hits",40,0.,40.);
    histo1D["LayerNum"]=new TH1D("LayerNum","Layer Number",5,0.,5.);
    histo1D["L0Ch"]=new TH1D("L0Ch","L0 Channel Numbers",15,0.,15.);
@@ -112,6 +127,8 @@ AnaMuon::AnaMuon(TFile * fout) {
    histo1D["L3Ch"]=new TH1D("L3Ch","L3 Channel Numbers",15,0.,15.);
    histo1D["L3Ch"]->GetXaxis()->SetTitle("Ch number 0 to 10");
    histo1D["L3Ch"]->GetYaxis()->SetTitle("Number of hits");
+
+   //histogram plots for each scinitillator
    for (int i=0; i<4; i++) {
       //for looping through each scincillator bar in each layer, will have four of these for loops
       int mNBar=31;
@@ -121,9 +138,10 @@ AnaMuon::AnaMuon(TFile * fout) {
          histo1D[hname]=new TH1D(hname.c_str(),htitle.c_str(),100,0.,100.);
       }
    }
-  //new code: end
-  //muX,Yproj
+   
+   //bin size declared
    int nbins = 200;   
+   //sets up more histogram
    histo1D["GenP"]=new TH1D("GenP","Gen P (GeV)",100,0.,100.);
    histo1D["GenId"]=new TH1D("GenId","Gen Id",100,0.,20.);
    histo2D["GenXY"]=new TH2D("GenXY","Gen X vs Y (cm)",100,-100.0,100.0,100,-100.0,100.0);
@@ -142,7 +160,6 @@ AnaMuon::AnaMuon(TFile * fout) {
    histo1D["ThetaofP2"]=new TH1D("ThetaofP2","degree",100,0.,90.);
    histo1D["ThetaofP3"]=new TH1D("ThetaofP3","degree",100,0.,90.);
    histo1D["ThetaofP4"]=new TH1D("ThetaofP4","degree",100,0.,90.);
-
    histo1D["HitP"]=new TH1D("HitP","Hit P (GeV)",100,0.,100.);
    histo2D["HitXY"]=new TH2D("HitXY","Hit X vs Y (cm)",100,-100.0,100.0,100,-100.0,100.0);
    histo1D["Layer1Edep"]=new TH1D("Layer1Edep","Layer1 Edep (MeV)",100,0.0,30.0);
@@ -170,7 +187,8 @@ AnaMuon::AnaMuon(TFile * fout) {
    histo2D["Layer4ET"]=new TH2D("Layer4ET","Layer4 Edep/Tol vs Tol (MeV)",100,0.0,30.0,100,0.0,30.0);
    histo2D["Layer2EH"]=new TH2D("Layer2EH","Layer2 Edep/Tol(MeV) vs #hit",100,0.0,30.0,100,0.0,15.0);
    histo2D["Layer4EH"]=new TH2D("Layer4EH","Layer4 Edep/Tol(MeV) vs #hit",100,0.0,30.0,100,0.0,15.0);
-   
+ 
+   //projection to Z-axis histograms created for all muon events
    int nz=20;
    double xylim=5000.0;
    for (int i=0; i<nz; i++) {
@@ -193,7 +211,8 @@ AnaMuon::AnaMuon(TFile * fout) {
 	 string htitle5=" x at Z ratio"+to_string(i)+" using true track";
 	 histo1D[hname5]=new TH1D(hname5.c_str(),htitle.c_str(),100,xylim,-xylim);
    }
-
+   
+   //projection to Z-axis histograms created for 4/4 muon events
    for (int i=0; i<nz; i++) {
      string hname="xZ"+to_string(i);
      string htitle="(reco) x at Z"+to_string(i);
@@ -211,7 +230,8 @@ AnaMuon::AnaMuon(TFile * fout) {
      histo2D[hname2]->GetXaxis()->SetTitle("X projection");
      histo2D[hname2]->GetYaxis()->SetTitle("Y projection");
    } 
-
+   
+   //some more histograms created
    histo2D["Xrecotrue5"]=new TH2D("Xrecotrue5","X reco vs true",100,-xylim,xylim,100,-xylim,xylim);
    histo2D["Yrecotrue5"]=new TH2D("Yrecotrue5","Y reco vs true",100,-xylim,xylim,100,-xylim,xylim);
    histo1D["DeltaX"]=new TH1D("DeltaX", "X reco-X true",100,-xylim,xylim);
@@ -223,9 +243,11 @@ AnaMuon::AnaMuon(TFile * fout) {
    histo1D["DeltaX5"]=new TH1D("DeltaX5", "X reco-X true",100,-xylim,xylim);
 }
 
+//AnaMuon General Constructor Definition
 //---------------------------------------------------------------------
 AnaMuon::~AnaMuon() {} ;
 
+//AnaMuon analyze method definition
 //---------------------------------------------------------------------
 void AnaMuon::analyze(sc8muontree ev) {
    double zCry;
@@ -591,13 +613,14 @@ void AnaMuon::analyze(sc8muontree ev) {
  
 }  // end of AnaMuon::analyze
 
+//AnaMuon endjob method definition
 //=============================================================================
 void AnaMuon::endjob() {
 myfile[0].close();
 myfile[1].close();
-//myfile[2].close();
 }
 
+//AnaMuon estimateXYatZ method definition
 //=============================================================================
 vector<TrackPoint>  AnaMuon::estimateXYatZ(vector<double> zPlane,TrackPoint tk ) {
    vector<TrackPoint> tkout;
@@ -623,6 +646,8 @@ vector<TrackPoint>  AnaMuon::estimateXYatZ(vector<double> zPlane,TrackPoint tk )
    return tkout;;
 }
 
+
+//AnaMuon reconstructTracks method definition
 //=============================================================================
 vector<TrackPoint>  AnaMuon::reconstructTracks(sc8muontree ev ) {
    vector<TrackPoint> recoedTracks;
@@ -688,6 +713,8 @@ vector<TrackPoint>  AnaMuon::reconstructTracks(sc8muontree ev ) {
 }  // end of AnaMuon::reconstructTracks
 
 
+
+// Main Function
 // ==========================================================================
 int main(int argc, char **argv) {
 
@@ -712,7 +739,7 @@ int main(int argc, char **argv) {
    //Creating sc8muontree object
    sc8muontree ev;
    //Calling Init method from sc8muontree object
-   //Initializes all the root branch plots to be displayed
+   //Purpose: Initializes all the root branch plots to be displayed
    ev.Init(tree);
 
    int nentries = tree->GetEntriesFast(); 
