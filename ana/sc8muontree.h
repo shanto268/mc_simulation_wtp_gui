@@ -43,11 +43,20 @@ public :
    Float_t         EdepS2[MAXCHAN];   //[nBar]
    Float_t         EdepS3[MAXCHAN];   //[nBar]
    Float_t         EdepS4[MAXCHAN];   //[nBar]
+   Float_t         SteplS1[MAXCHAN]; //changed by SAS 29/11
+   Float_t         SteplS2[MAXCHAN]; //changed by SAS 29/11                                                             
+   Float_t         SteplS3[MAXCHAN]; //changed by SAS 29/11
+   Float_t         SteplS4[MAXCHAN]; //changed by SAS 29/11
    Int_t           nTray;
    Float_t         EdepT1;
    Float_t         EdepT2;
    Float_t         EdepT3;
    Float_t         EdepT4;
+   Float_t         SteplT1; //changed by SAS 29/11
+   Float_t         SteplT2; //changed by SAS 29/11
+   Float_t         SteplT3; //changed by SAS 29/11
+   Float_t         SteplT4; //changed by SAS 29/11
+
    Int_t           nHitsR1;
    Int_t           HitsR1Id[MAXGENPAR];   //[nHitsR1]
    Int_t           HitsR1Tk[MAXGENPAR];   //[nHitsR1]

@@ -53,8 +53,8 @@ class AnaMuon {
       std::map<std::string, TH2D*> histo2D;
       std::map<std::string, TH2D*>::iterator histo2Diter;
       ofstream myfile[2]; 
-      double x22[11];
-      double x44[11];
+      double x22[31];  //SAS
+      double x44[31];  //SAS
       double xme;
       double angle;
       int printHitFlag;
@@ -86,7 +86,7 @@ AnaMuon::AnaMuon(TFile * fout) {
 	{
 		myfile[i].open(filename[i].c_str());
 	} 
-   for (int i=0 ;i<11 ;i++){
+   for (int i=0 ;i<31 ;i++){
           x22[i]=0;
           x44[i]=0;
    }
@@ -114,7 +114,7 @@ AnaMuon::AnaMuon(TFile * fout) {
    histo1D["L3Ch"]->GetYaxis()->SetTitle("Number of hits");
    for (int i=0; i<4; i++) {
       //for looping through each scincillator bar in each layer, will have four of these for loops
-      int mNBar=11;
+      int mNBar=31;
       for (int j=0; j<mNBar; j++) {
          string hname="EdepL"+to_string(i)+"Ch"+to_string(j);
          string htitle="Edep L"+to_string(i)+ "Ch "+to_string(j);
@@ -142,21 +142,7 @@ AnaMuon::AnaMuon(TFile * fout) {
    histo1D["ThetaofP2"]=new TH1D("ThetaofP2","degree",100,0.,90.);
    histo1D["ThetaofP3"]=new TH1D("ThetaofP3","degree",100,0.,90.);
    histo1D["ThetaofP4"]=new TH1D("ThetaofP4","degree",100,0.,90.);
-   /*for (int i=0; i<4; i++) {
-     string hname="P of theta"+to_string(i);
-     string htitle="P of theta"+to_string(i);
-     histo1D[hname]=new TH1D(hname.c_str(),htitle.c_str(),100,0,100);
-   //  histo1D[hname]->SetAxisRange(0.,100.,"Y");
-   }
-   for (int i=0; i<4; i++) {
-     string hname="Theta of P"+to_string(i);
-     string htitle="Theta of P"+to_string(i);
-     histo1D[hname]=new TH1D(hname.c_str(),htitle.c_str(),100,0, 4*atan(1));
-   //  histo1D[hname]->SetAxisRange(0.,100.,"Y");
-   }*/
 
-
-  // histo1D["Thetay"]=new TH1D("Thetay","degree",100,0.,4*atan(1));
    histo1D["HitP"]=new TH1D("HitP","Hit P (GeV)",100,0.,100.);
    histo2D["HitXY"]=new TH2D("HitXY","Hit X vs Y (cm)",100,-100.0,100.0,100,-100.0,100.0);
    histo1D["Layer1Edep"]=new TH1D("Layer1Edep","Layer1 Edep (MeV)",100,0.0,30.0);
@@ -184,6 +170,7 @@ AnaMuon::AnaMuon(TFile * fout) {
    histo2D["Layer4ET"]=new TH2D("Layer4ET","Layer4 Edep/Tol vs Tol (MeV)",100,0.0,30.0,100,0.0,30.0);
    histo2D["Layer2EH"]=new TH2D("Layer2EH","Layer2 Edep/Tol(MeV) vs #hit",100,0.0,30.0,100,0.0,15.0);
    histo2D["Layer4EH"]=new TH2D("Layer4EH","Layer4 Edep/Tol(MeV) vs #hit",100,0.0,30.0,100,0.0,15.0);
+   
    int nz=20;
    double xylim=5000.0;
    for (int i=0; i<nz; i++) {
@@ -247,10 +234,10 @@ void AnaMuon::analyze(sc8muontree ev) {
    // reconstruct tracks...
    vector<TrackPoint> recoedTracks=reconstructTracks(ev);
     xe.clear();
-   ang.clear();
+    ang.clear();
     xe2.clear();
     ang2.clear();
-	ofstream myfile;
+    ofstream myfile;
 //	myfile.open ("theta_file.txt", ios_base::app);
    for(int i=0; i<ev.nGenPar; i++) {
     // double aa[ev.nGenPar];
@@ -262,7 +249,7 @@ void AnaMuon::analyze(sc8muontree ev) {
 	 //RP UPDATE 02/17
 //	 double theta_plt = atan(sqrt(pow(ev.GenParPx[i],2)+pow(ev.GenParPy[i],2))/abs(ev.GenParPz[i]))/(4*atan(1))*180.0;
 //	 myfile << theta_plt << "\n";
-	 histo1D["Thetaxz"]->Fill(atan(abs(ev.GenParPx[i]/ev.GenParPz[i]))/(4*atan(1))*180.);
+     histo1D["Thetaxz"]->Fill(atan(abs(ev.GenParPx[i]/ev.GenParPz[i]))/(4*atan(1))*180.);
      if (atan(sqrt(pow(ev.GenParPx[i],2)+pow(ev.GenParPy[i],2))/abs(ev.GenParPz[i]))/(4*atan(1))*180.<=22.5) {
      histo1D["Poftheta1"]->Fill(ev.GenParP[i]);
      }else if (atan(sqrt(pow(ev.GenParPx[i],2)+pow(ev.GenParPy[i],2))/abs(ev.GenParPz[i]))/(4*atan(1))*180.<=45.) {
@@ -281,7 +268,6 @@ void AnaMuon::analyze(sc8muontree ev) {
      }else{
      histo1D["ThetaofP4"]->Fill(atan(sqrt(pow(ev.GenParPx[i],2)+pow(ev.GenParPy[i],2))/abs(ev.GenParPz[i]))/(4*atan(1))*180.);
      }
-
 
     
      //histo1D["Thetay"]->Fill(acos(ev.GenParPy[i]/ev.GenParPz[i]));
@@ -314,7 +300,7 @@ void AnaMuon::analyze(sc8muontree ev) {
    }
 
 //   RPs code...
-   for(int i=0; i<11; i++) {
+   for(int i=0; i<31; i++) {
      // nhits=0;
      // double s1hity,s2hitx, s3hity, s4hitx;
      double edep1=ev.EdepS1[i];
@@ -344,7 +330,7 @@ void AnaMuon::analyze(sc8muontree ev) {
     histo1D["Layer2Edep1"]->Fill(ev.EdepS2[1]);
    }*/
    double xx=0;
-   for(int i=0; i<11; i++) {
+   for(int i=0; i<31; i++) {
     // nhits=0;
      // double s1hity,s2hitx, s3hity, s4hitx;
      double edep=ev.EdepS1[i];
@@ -494,7 +480,7 @@ void AnaMuon::analyze(sc8muontree ev) {
      ang.push_back(atan(ev.GenParPx[i]/ev.GenParPz[i]));
     }
     double e2k=0;
-    for (int i=0;i<11;i++){
+    for (int i=0;i<31;i++){
       // if (ev.EdepS2[i]>ev.EdepS2[i-1]){
       if (ev.EdepS2[i]>e2k){
         e2k=ev.EdepS2[i];
@@ -514,20 +500,20 @@ void AnaMuon::analyze(sc8muontree ev) {
        z24.push_back(17.00);
        z24.push_back(-23.00);
        vector<TrackPoint>  tkZ24=estimateXYatZ(z24,recoedTracks[0]);*/
-       string sx2[11], sx4[11];       
+       string sx2[31], sx4[31];       
        vector<int> s2;
        vector<int> s4;
-       for (int i=0;i<11;i++){
+       for (int i=0;i<31;i++){
         sx2[i]=" . ";
         sx4[i]=" . ";
        }
-       for (int ix2=0;ix2<11;ix2++){
+       for (int ix2=0;ix2<31;ix2++){
         if(ev.EdepS2[ix2]>0.0){
          sx2[ix2]=" x ";
          s2.push_back(ix2);
          }  
        }
-       for (int ix4=0;ix4<11;ix4++){
+       for (int ix4=0;ix4<31;ix4++){
         if(ev.EdepS4[ix4]>0.0){
          sx4[ix4]=" x ";
          s4.push_back(ix4);
@@ -539,7 +525,7 @@ void AnaMuon::analyze(sc8muontree ev) {
        double t4=0.;
        double tt2=0.;
        double tt4=0.;
-       for (int i=1;i<11;i++){
+       for (int i=1;i<31;i++){
         if((ev.EdepS2[i]>=0.) && (ev.EdepS4[i]>=0.)){
          if(ev.EdepS2[i]>ev.EdepS2[i-1]){
          ix2=i;
@@ -549,7 +535,7 @@ void AnaMuon::analyze(sc8muontree ev) {
          }
         }
        }
-       for (int i=1;i<11;i++){
+       for (int i=1;i<31;i++){
          t2=t2+ev.EdepS2[i];
          t4=t4+ev.EdepS4[i];
          if (i==ix2){
@@ -589,10 +575,10 @@ void AnaMuon::analyze(sc8muontree ev) {
       for (int i=0;i<xe2.size();i++){
         histo1D["DeltaX5"]->Fill(xe2[i]-xe[i]);
        }
-      for (int i=0;i<11;i++){
+      for (int i=0;i<31;i++){
         histo1D["Layer2Edepmax"]->Fill(ev.EdepS2[i]);
        }
-       for (int i=0;i<11;i++){
+       for (int i=0;i<31;i++){
         histo1D["Layer4Edepmax"]->Fill(ev.EdepS4[i]);
        }
       histo2D["Layer2ET"]->Fill(t2,tt2);
@@ -651,7 +637,7 @@ vector<TrackPoint>  AnaMuon::reconstructTracks(sc8muontree ev ) {
    double xesum[]={0.0, 0.0, 0.0, 0.0, 0.0};
    double esum[]= {0.0, 0.0, 0.0, 0.0, 0.0};
 
-   for(int i=0; i<10; i++) {
+   for(int i=0; i<31; i++) {
     // nhits=0;
      // double s1hity,s2hitx, s3hity, s4hitx;
      double edep1=ev.EdepS1[i];   // y1

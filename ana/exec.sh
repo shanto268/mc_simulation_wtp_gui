@@ -1,2 +1,3 @@
-c++  `root-config --cflags` -o muonAnalysis3 sc8muontree.cc muonAnalysis3_newsh.cc `root-config --glibs`
-./muonAnalysis3 muonTree01.root hist_muontrial2.root
+c++  `root-config --cflags` -o muonAnalysis3 sc8muontree.cc muonAnalysis3_rp.cc  `root-config --glibs`
+./muonAnalysis3 muonTree01_facing.root facing_ana.root 
+./muonAnalysis3 muonTree01_away.root   away_ana.root
