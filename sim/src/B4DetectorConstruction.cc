@@ -901,7 +901,7 @@ auto RefPlane1LV
                  scintRot,                // no rotation
                  G4ThreeVector(0.0,yval,0.0), // its position
                  sBARLV1,            // its logical volume                         
-                 "sBAR_bottom",            // its name
+                 "sBAR",            // its name
                  Tray1LV,          // its mother  volume
                  false,            // no boolean operation
                  i,                // copy number
@@ -917,10 +917,10 @@ auto RefPlane1LV
                  0,                // no rotation
                  G4ThreeVector(0.0,yval,0.0), // its position
                  sBARLV2,            // its logical volume                         
-                 "sBAR_top",            // its name
+                 "sBAR",            // its name
                  Tray1LV,          // its mother  volume
                  false,            // no boolean operation
-                 i,                // copy number
+                 i+16,                // copy number
                  fCheckOverlaps);  // checking overlaps 
 
  }
