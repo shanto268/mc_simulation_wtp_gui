@@ -27,6 +27,7 @@
 // 
 /// \file B4DetectorConstruction.cc
 /// \brief Implementation of the B4DetectorConstruction class
+// Some new comment
 
 #include "B4DetectorConstruction.hh"
 

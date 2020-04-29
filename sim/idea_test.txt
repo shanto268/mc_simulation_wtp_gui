@@ -1,0 +1,28 @@
+Experiment 1: 
+    shoot horizontal beams across different vertical axis and record the radii of the tank and the iron
+    do the same for vertical beams across horizontal axis
+    angled beam to check diameter
+
+Experiment 2:
+   Make planar muon beam shoot at wtp horizontally and vertically while empty
+   Make planar muon beam shoot at wtp horizontally and vertically with water (low, mid, high)
+
+Constants:
+    always check the material of presence in all experiments
+    need to find a way to report path lengths in materials from G4
+    better understand how the shower works from CRY and G4
+
+Visualization/Plot Idea:
+    path lengths in medium plots
+    make plots in G4 and ROOT
+    Path length within the iron volume vs the height of beam origin 
+
+Shape Generation:
+    1D Shape extraction from path length inside tower data (shooting muon horizontally many x layers)
+    1D Shape extraction from path length inside tower data (shooting muon horizontally many y layers)
+    2D shape generation from the muon path length
+
+Proportion of muons absorbed/scattered:
+    Running a sim and generating an image.
+
+
