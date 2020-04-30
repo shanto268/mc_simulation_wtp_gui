@@ -177,14 +177,22 @@ G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()
   	//rp, mother tower, everything for tower will go in here
   G4double TowerRout=1676.4*cm;   // Outer radius, 55 feet -> 1676.4 cm
   G4double TowerRin=0.0;
-  G4double TowerLen=2225.04*cm;  // a half hight, 146 feet / 2 ->73 feet -> 2225.04 cm
+  G4double TowerLen=21.925*m;  // a half hight, 146 feet / 2 ->73 feet -> 2225.04 cm
   G4double TowerX=3280.0*cm; // x position inside mother volume (world) 32.82 meters from detector
   G4double TowerY=1.0*mm; // y position inside mother volume (world)
   G4double TowerZ=TowerLen;  // z position inside mother volume (world)      
 
+	//rp paraboloid Tank1LV top start
+  G4double pR1 = 0.0*m;
+  G4double pR2 = 7.629525*m;
+  G4double pDz = 2.5*m; // half height of 5.0 meters
+  G4double Tank1X = 0.0;
+  G4double Tank1Y = 0.0;
+  G4double Tank1Z = TowerLen - pDz;
+/*
   	//rp spherical shell Tank1LV top start  
   G4double pRmin = 0.0;  // Inner radius 0 to create mothervolume for waterinside
-  G4double pRmax = 7.629525*m;  // Outer radius, 15ft + (wall thickness) 0.375inch-> 458.1525 cm
+  G4double pRmax = 7.629525*m;  // Outer radius, 25ft + (wall thickness) 0.375inch-> 7.629525 m
   G4double pSPhi = M_PI/2*rad;  // Starting Phi angle of the segment in radians
   G4double pDPhi = 2.0*M_PI*rad;  // Delta Phi angle of the segment in radians
   G4double pSTheta = M_PI/2*rad;  // Starting Theta angle of the segment in radians
@@ -192,18 +200,16 @@ G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()
   G4double TankY = 0.0;
   G4double TankX = 0.0;
   G4double TankZ = TowerLen - 580.0725*cm; // z position inside mother volume (Tower) 
-
+*/
 	//rp, cylinder Tank2LV start
   G4double p2Rmin = 0.0; // Inner radius 0 to create mother volume for waterinside
   G4double p2Rmax = 7.629525*m; // Outer radius same as G4double pRmax
-   //G4double p2Rmax = 4.5*m;  
- G4double p2DZ = 213.36*cm; // a half hight, 14 feet / 2 -> 7ft -> 213.36 cm
- // G4double p2DZ = 4.35/2.0 *m;
+  G4double p2DZ = 2.175*m; // a half hight, 4.35 m / 2 -> 2.175 m
   G4double p2SPhi = 0.0*rad;
   G4double p2DPhi = 2*M_PI*rad;
   G4double Tank2X=0.0;
   G4double Tank2Y=0.0;
-  G4double Tank2Z=TowerLen - 793.4325*cm; // z position inside mother volume (Tower)
+  G4double Tank2Z= TowerLen - 7.175*m; // z position inside mother volume (Tower)
 
 	//rp, spherical shell Tank3LV start
   G4double p3Rmin = 0.0; // inner radius 0 to create mother volume for waterinside
@@ -214,7 +220,7 @@ G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()
   G4double p3DTheta = 2*M_PI*rad;
   G4double Tank3X = 0.0;
   G4double Tank3Y = 0.0;
-  G4double Tank3Z = TowerLen - 1006.7925*cm; // z position inside mother volume (Tower)
+  G4double Tank3Z = TowerLen - 9.35*m; // z position inside mother volume (Tower)
 
   	//rp, spherical shell water inside tank WatTank1LV start
   G4double pRminwat = 0.0*m; // inner radius
@@ -367,14 +373,14 @@ G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()
  // auto Tank1S // creating solid half spherical shell for top
  //   = new G4Sphere("Tank1",pRmin,pRmax,pSPhi,pDPhi,pSTheta,pDTheta);
 
-  auto Tank1S = new G4Paraboloid("Tank1", 2.5*m, 0.0*m, 7.6295*m);
+  auto Tank1S = new G4Paraboloid("Tank1", pDz, pR1, pR2);
 
   auto Tank1LV // creating logical volume
     = new G4LogicalVolume(Tank1S, tankMaterial, "Tank1");
   // creating placement for logical volume
   new G4PVPlacement(
                  tankRot,                // rotating Tank1
-                 G4ThreeVector(TankX,TankY,TankZ+1*m), // placement in world
+                 G4ThreeVector(Tank1X,Tank1Y,Tank1Z), // placement in world
                  Tank1LV,          // its logical volume                         
                  "Tank1",    // its name
                  TowerLV,          // its mother  volume

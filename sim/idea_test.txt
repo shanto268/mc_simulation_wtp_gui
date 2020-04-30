@@ -25,4 +25,6 @@ Shape Generation:
 Proportion of muons absorbed/scattered:
     Running a sim and generating an image.
 
+Image_Reconstruction from data:
 
+Machine Learning in image reconstruction from data:
