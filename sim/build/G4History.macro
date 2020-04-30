@@ -69,5 +69,36 @@
 /gui/addButton viewer "Flush viewer (= refresh + update)" "/vis/viewer/flush"
 /gui/addButton viewer "Update scene" "/vis/scene/notifyHandlers"
 /run/printProgress 100
-/run/beamOn 100
-/vis/scene/notifyHandlers scene-0
+/vis/set/touchable World 0 Tower 0
+/vis/set/touchable World 0 Tower 0
+/vis/set/touchable World 0 Tower 0 Ledge 0
+/vis/set/touchable World 0 Tower 0 Leg 0
+/vis/set/touchable World 0 Tower 0 Leg2 1
+/vis/set/touchable World 0 Tower 0 Leg3 2
+/vis/set/touchable World 0 Tower 0 Leg4 3
+/vis/set/touchable World 0 Tower 0 Tank1 0
+/vis/set/touchable World 0 Tower 0 Tank1 0 WatTank1 0
+/vis/set/touchable World 0 Tower 0 Tank2 0
+/vis/set/touchable World 0 Tower 0 Tank2 0 WatTank2 0
+/vis/set/touchable World 0 Tower 0 Tank3 0
+/vis/set/touchable World 0 Tower 0 Tank3 0 WatTank3 0
+/vis/set/touchable World 0 Tower 0 tube 0
+/vis/set/touchable World 0 Tower 0 tube 0 tubeWater 0
+/vis/set/touchable World 0 Tower 0
+/vis/set/touchable World 0 Tower 0 Ledge 0
+/vis/set/touchable World 0 Tower 0 Leg 0
+/vis/set/touchable World 0 Tower 0 Leg2 1
+/vis/set/touchable World 0 Tower 0 Leg3 2
+/vis/set/touchable World 0 Tower 0 Leg4 3
+/vis/set/touchable World 0 Tower 0 Tank1 0
+/vis/set/touchable World 0 Tower 0 Tank1 0 WatTank1 0
+/vis/set/touchable World 0 Tower 0 Tank2 0
+/vis/set/touchable World 0 Tower 0 Tank2 0 WatTank2 0
+/vis/set/touchable World 0 Tower 0 Tank3 0
+/vis/set/touchable World 0 Tower 0 Tank3 0 WatTank3 0
+/vis/set/touchable World 0 Tower 0 tube 0
+/vis/set/touchable World 0 Tower 0 tube 0 tubeWater 0
+/vis/viewer/set/style s
+/vis/viewer/refresh
+/vis/viewer/set/hiddenEdge 0
+/vis/viewer/refresh

@@ -453,8 +453,6 @@ CMakeFiles/exampleB4a.dir/src/B4DetectorConstruction.cc.o
  /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4Threading.hh
  /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4ThreeVector.hh
  /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4Transform3D.hh
- /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4Trd.hh
- /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4Trd.icc
  /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4Tubs.hh
  /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4Tubs.icc
  /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4Types.hh
@@ -466,7 +464,6 @@ CMakeFiles/exampleB4a.dir/src/B4DetectorConstruction.cc.o
  /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4UIparameter.hh
  /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4UItokenNum.hh
  /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4USphere.hh
- /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4UTrd.hh
  /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4UTubs.hh
  /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4UnionSolid.hh
  /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4VExceptionHandler.hh

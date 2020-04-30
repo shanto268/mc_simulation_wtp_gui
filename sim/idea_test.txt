@@ -15,7 +15,7 @@ Constants:
 Visualization/Plot Idea:
     path lengths in medium plots
     make plots in G4 and ROOT
-    Path length within the iron volume vs the height of beam origin 
+    Path length within the iron volume vs the height of beam origin plot 
 
 Shape Generation:
     1D Shape extraction from path length inside tower data (shooting muon horizontally many x layers)

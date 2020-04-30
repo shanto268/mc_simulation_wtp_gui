@@ -27,7 +27,6 @@
 // 
 /// \file B4DetectorConstruction.cc
 /// \brief Implementation of the B4DetectorConstruction class
-// Some new comment
 
 #include "B4DetectorConstruction.hh"
 
@@ -39,7 +38,6 @@
 
 #include "G4Box.hh"
 #include "G4Sphere.hh" // included by rp for sphere
-#include "G4Trd.hh" // SAS added 2020
 #include "G4Tubs.hh"
 #include "G4LogicalVolume.hh"
 #include "G4PVPlacement.hh"
@@ -59,11 +57,12 @@
 
 #include "G4PhysicalConstants.hh"
 #include "G4SystemOfUnits.hh"
+/*
+Flow of program
 
-#include <cmath>
-#include <iomanip>
-#include <iostream>
 
+
+*/
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 G4ThreadLocal 
@@ -118,7 +117,7 @@ void B4DetectorConstruction::DefineMaterials()
   // Vacuum
   new G4Material("Galactic", z=1., a=1.01*g/mole,density= universe_mean_density,
                   kStateGas, 2.73*kelvin, 3.e-18*pascal);
-
+  // Scintillator material
   G4Material* Scintillator = 
 	new G4Material("Scintillator", density= 1.032*g/cm3, ncomponents=2);
 	Scintillator->AddElement(C, natoms=9);
@@ -144,11 +143,11 @@ G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()
      World       (z: vertical (up: positive), x,y horizontal)
        - Tower
           - Tank LV(Tank1LV, Tank2LV, Tank3LV)
-		- top wattank LV(WatTank1LV)
-		- Middle wattank LV(WatTank2LV) or 20ft/18ft(WatTank2LV, WatTank21LV)
-		- Bottom wattank LV(WatTank3LV) or 13ft(WatTank3LV, WatTank31LV) or 15ft(WatTank3LV, WatTank31LV)
+			- Wattank LV(WatTank1LV, WatTank2LV, WatTank3LV)
           - Tube LV(TubeLV)
 	        - Tube Water(TubeWaterLV)
+		  - ledge LV(LedgeLV)
+		  - leg LV(LegLV)
        - SC8     (xyz: similar to World)
            - Station    ( 1 copy for now) (xyz: similar to SC8)    
               - Tray    ( 4 copies)   (z: similar to Station, x along Bar's longer axis)
@@ -156,16 +155,13 @@ G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()
               - Ref1    (reference plane)
   */
 
-  // Geometry parameters
-  // Need to change : SAS 2020
-  G4int nofBars = 16;
-  G4double BarSizeX  = 60.*cm;   
-  G4double BarSizeY  = 3.*cm; //base
-  G4double BarEdge   = std::sqrt(4.5)*cm; //SAS 2020 edge length of triangular scintillator
-  G4double BarSizeZ  = 1.5*cm; //height  
-
-  //G4double AirGap    = 0.1*cm;  // arond sBar.
-
+  /// Geometry parameters ////////////////////////////////
+  	// Detector parameters 
+  G4int nofBars = 10;
+  G4double BarSizeX  = 60.*cm;
+  G4double BarSizeY  = 5.*cm;
+  G4double BarSizeZ  = 5.*cm;
+  
   G4double TraySizeX  = BarSizeX;//+AirGap;
   G4double TraySizeY  = (BarSizeY/*+AirGap*/)*nofBars;//+AirGap;
   G4double TraySizeZ  = BarSizeZ;//+AirGap;
@@ -175,9 +171,123 @@ G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()
   G4RotationMatrix* zRot = new G4RotationMatrix; // Rotates X and Z axes only
   zRot -> rotateX(0.*rad);
   zRot -> rotateY(0.*rad);
-  zRot -> rotateZ(M_PI/2*rad);
+  zRot -> rotateZ(M_PI/2.*rad);
 
-  // Get materials
+  	//rp, mother tower, everything for tower will go in here
+  G4double TowerRout=1676.4*cm;   // Outer radius, 55 feet -> 1676.4 cm
+  G4double TowerRin=0.0;
+  G4double TowerLen=2225.04*cm;  // a half hight, 146 feet / 2 ->73 feet -> 2225.04 cm
+  G4double TowerX=3280.0*cm; // x position inside mother volume (world) 32.82 meters from detector
+  G4double TowerY=1.0*mm; // y position inside mother volume (world)
+  G4double TowerZ=TowerLen;  // z position inside mother volume (world)      
+
+  	//rp spherical shell Tank1LV top start  
+  G4double pRmin = 0.0;  // Inner radius 0 to create mothervolume for waterinside
+  G4double pRmax = 458.1525*cm;  // Outer radius, 15ft + (wall thickness) 0.375inch-> 458.1525 cm
+  G4double pSPhi = M_PI/2*rad;  // Starting Phi angle of the segment in radians
+  G4double pDPhi = 2*M_PI*rad;  // Delta Phi angle of the segment in radians
+  G4double pSTheta = M_PI/2*rad;  // Starting Theta angle of the segment in radians
+  G4double pDTheta = 2*M_PI*rad;  // Delta Theta angle of the segment in radians)
+  G4double TankY = 0.0;
+  G4double TankX = 0.0;
+  G4double TankZ = TowerLen - 580.0725*cm; // z position inside mother volume (Tower) 
+
+	//rp, cylinder Tank2LV start
+  G4double p2Rmin = 0.0; // Inner radius 0 to create mother volume for waterinside
+  G4double p2Rmax = 458.1525*cm; // Outer radius same as G4double pRmax
+  G4double p2DZ = 213.36*cm; // a half hight, 14 feet / 2 -> 7ft -> 213.36 cm
+  G4double p2SPhi = 0.0*rad;
+  G4double p2DPhi = 2*M_PI*rad;
+  G4double Tank2X=0.0;
+  G4double Tank2Y=0.0;
+  G4double Tank2Z=TowerLen - 793.4325*cm; // z position inside mother volume (Tower)
+
+	//rp, spherical shell Tank3LV start
+  G4double p3Rmin = 0.0; // inner radius 0 to create mother volume for waterinside
+  G4double p3Rmax = 458.1525*cm; // outer radius same as G4double pRmax
+  G4double p3SPhi = M_PI/2*rad;
+  G4double p3DPhi = 2*M_PI*rad;
+  G4double p3STheta = M_PI/2*rad;
+  G4double p3DTheta = 2*M_PI*rad;
+  G4double Tank3X = 0.0;
+  G4double Tank3Y = 0.0;
+  G4double Tank3Z = TowerLen - 1006.7925*cm; // z position inside mother volume (Tower)
+
+  	//rp, spherical shell water inside tank WatTank1LV start
+  G4double pRminwat = 0.0; // inner radius
+  G4double pRmaxwat = 457.2*cm; // outer radius, inner radius of tank for creating inside water 
+  G4double pSPhiwat = M_PI/2*rad;
+  G4double pDPhiwat = 2*M_PI*rad;
+  G4double pSThetawat = M_PI/2*rad;
+  G4double pDThetawat = 2*M_PI*rad;
+  G4double TankwatX = 0.0; // x position inside mother volume (middle of shape) used for placement for all water LV
+  G4double TankwatY = 0.0; // y position inside mother volume (middle of shape) used for placement for all water LV
+  G4double TankwatZ = 0.0; // z position inside mother volume (middle of shape) used for placement for all water LV
+
+  	// rp, middle tank WatTank2LV start
+  G4double p2Rminwat = 0.0;  // Inner radius
+  G4double p2Rmaxwat = 457.2*cm;  // Outer radius, innder radius of tank for creating inside water 
+  G4double p2DZwat = p2DZ;  // half hight, same as G4double p2DZ to elimate space inside iron shell between top and bottom
+  G4double p2SPhiwat = 0.0;  // Delta Phi angle of the segment in radians
+  G4double p2DPhiwat = 2*M_PI*rad;  // Starting Theta angle of the segment in radians
+  G4double Tankwat2X = 0.0;
+  G4double Tankwat2Y = 0.0;
+  G4double Tankwat2Z = 0.0;
+
+  	// rp, WatTank3LV bottom inside water half sphere
+  G4double p3Rminwat = 0.0; // inner radius
+  G4double p3Rmaxwat = 457.2*cm; // outer radius, inner radius of tank for creating inside water
+  G4double p3SPhiwat = M_PI/2*rad;
+  G4double p3DPhiwat = 2*M_PI*rad;
+  G4double p3SThetawat = M_PI/2*rad;
+  G4double p3DThetawat = 2*M_PI*rad;
+  G4double Tankwat3X = 0.0;
+  G4double Tankwat3Y = 0.0;
+  G4double Tankwat3Z = 0.0;
+
+	//rp, cylinder for iron tube start
+  G4double tubeRout = 91.44*cm; // outer radius, 3 feet -> 91.44 cm
+  G4double tubeRin = 0.0; // inner radius
+  G4double tubeLen = 1492.5675*cm; // half hight, 97.9375 feet / 2 -> 48.96875ft -> 1492.5675 cm
+  G4double tubeStartAngle = 0.0;
+  G4double tubeSpanningAngle = 2.0*M_PI*rad;
+  G4double tubeX = 0.0;
+  G4double tubeY = 0.0;
+  G4double tubeZ = tubeLen - TowerLen; // z position inside mother volume (terRout = tubeRout -0.25*2.54*cm;
+ 
+  	//rp, cylinder for water tube start
+  G4double tubeWaterRout = 50.44*cm; // outer radius, inner radius of tube (could be smaller for tube of water
+  G4double tubeWaterRin = 0.0; // inner radius start
+  G4double tubeWaterLen = tubeLen; // half hight, same as tubeLen to elimate space between shapes
+  G4double Sphi = 0.0;
+  G4double SThe = 2.0*M_PI*rad;
+  G4double tubeWaterX = 0.0; // Placement for inner water tube x,y,z following 
+  G4double tubeWaterY = 0.0;
+  G4double tubeWaterZ = 0.0;
+
+	//rp, cylinder for iron ledge around tank
+  G4double ledgeRout = 549.5925*cm; // outer radius, creating the ledge outside the iron shell
+  G4double ledgeRin = 519.1125*cm; // inner radius, for creating the width of the ledge
+  G4double ledgeLen = 91.44*cm; // half hight, 6ft ledge -> 182.88 cm / 2 -> 91.44 cm
+  G4double ledgeSphi = 0.0;
+  G4double ledgeSThe = 2.0*M_PI*rad;
+  G4double ledgeX = 0.0;
+  G4double ledgeY = 0.0;
+  G4double ledgeZ = TowerLen - 1006.7925*cm; // placement for ledge in tower volume
+
+	//rp, cylinder for iron legs around tank
+  G4double legRout = 30.48*cm; // outer radius, 1ft -> 30.48*cm
+  G4double legRin = 0.0; // inner radius
+  G4double legLen = 1675.4475*cm; // half hight, 54.96875 feet -> 1675.4475cm 
+  G4double legSphi = 0.0;
+  G4double legSThe = 2.0*M_PI*rad;
+  G4double legX[] = {549.5925*cm, -549.5925*cm}; // array containing x position to be used by a leg inside tower volume
+  G4double legY[] = {549.5925*cm, -549.5925*cm}; // array containing y position to be used by a leg inside tower volume
+  G4double legZ = legLen - TowerLen; // z position to be used by the leg inside tower volume
+
+  /// Get materials /////////////////////////////////////////
+  auto waterMaterial  = G4Material::GetMaterial("Water");
+  auto tankMaterial  = G4Material::GetMaterial("iron");
   auto defaultMaterial = G4Material::GetMaterial("G4_AIR");
 //  auto waterMaterial = G4Material::GetMaterial("Water");
  // auto boxMaterial = G4Material::GetMaterial("iron");
@@ -224,165 +334,6 @@ G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()
   //
   // Tower
   //
-//rp, mother tower, everything for tower will go in here
-  double TowerRout=55.0*30.0*cm;   // 55 feet
-  double TowerRin=0.0;
-  double TowerLen=146.0*30.0*0.5*cm;  // a half hight, 177 feet = 53.1 meters,  too tall?
-  double TowerX=3280.0*cm;
-  double TowerY=1.0;  //*mm
-  double TowerZ=TowerLen;
-//  std::cout<<"B4DetectorConstruction:  TowerY="<<TowerY<<std::endl;
-//rp, mother tower, everything for tower will go in here end
-
-//rp spherical shell tank1LV top start
-  
-  double pRmin = 0.0;  // Inner radius
-  double pRmax = 25.0*30.0*cm;  // Outer radius
-  double pSPhi = M_PI/2;  // Starting Phi angle of the segment in radians
-  double pDPhi = 2*M_PI;  // Delta Phi angle of the segment in radians
-  double pSTheta = M_PI/2;  // Starting Theta angle of the segment in radians
-  double pDTheta = 2*M_PI;  // Delta Theta angle of the segment in radians)
-  double TankY = 0.0;
-  double TankX = 0.0;
-  double TankZ = TowerLen - 50.0*30.0*0.5*cm;  // height of tank same as outer radius because perfect sphere
-
-//rp spherical shell tank end
- 
-//rp, cylinder tank2LV start
-  double p2Rmin = 0.0;  // 1/4 inches wall
-  double p2Rmax = 25.0*30.0*cm;
-  double p2DZ = 14.0*30.0*0.5*cm;
-  double p2SPhi = 0.0;
-  double p2DPhi = 2*M_PI;
-  double Tank2X=0.0;
-  double Tank2Y=0.0;
-  double Tank2Z=TowerLen - 57.0*30.0*0.5*cm;
-//rp, cylinder tank2 end
-
-//rp, spherical shell tank3LV start
-  double p3Rmin = 0.0;
-  double p3Rmax = 25.0*30.0*cm;
-  double p3SPhi = M_PI/2;
-  double p3DPhi = 2*M_PI;
-  double p3STheta = M_PI/2;
-  double p3DTheta = 2*M_PI;
-  double Tank3X = 0;
-  double Tank3Y = 0;
-  double Tank3Z = TowerLen - 64.0*30.0*0.5*cm;
-// rp, spherical shell tank3 end
-
-
-//rp, spherical shell water inside tank WatTank1LV start
-  double pRminwat = 0.0;
-  double pRmaxwat = pRmax - 0.25*2.54*cm;
-  double pSPhiwat = M_PI/2;
-  double pDPhiwat = 2*M_PI;
-  double pSThetawat = M_PI/2;
-  double pDThetawat = 2*M_PI;
-  double TankwatX = 0.0;
-  double TankwatY = 0.0;
-  double TankwatZ = 0.0;
-//rp, spherical shell water inside tank end
-
-//// rp, middle tank WatTank2LV(full middle tank, uncomment when using full middle tank /////
-/*
-  double p2Rminwat = 0.0;  // Inner radius
-  double p2Rmaxwat = p2Rmax - 0.25*2.54*cm;  // Outer radius
-  double p2DZwat = p2DZ - 0.25*2.54*cm;  // Starting Phi angle of the segment in radians
-  double p2SPhiwat = 0.0;  // Delta Phi angle of the segment in radians
-  double p2DPhiwat = 2*M_PI;  // Starting Theta angle of the segment in radians
-*/
-/////// rp, WatTank3LV bottom half water sphere ////
-  double p3Rminwat = 0.0;
-  double p3Rmaxwat = p3Rmax - 0.25*2.54*cm;
-  double p3SPhiwat = M_PI/2;
-  double p3DPhiwat = 2*M_PI;
-  double p3SThetawat = M_PI/2;
-  double p3DThetawat = 2*M_PI;
-/// middle tank WatTank2LV and WatTank21LV for changing to 20ft and 18ft //////
-
-  double p2Rmin20ft = 0.0;
-  double p2Rmax20ft = 25.0*30.0*cm;
-  double p2DZ20ft = 12.0*30.0*0.5*cm;
-  double p2SPhi20ft = 0.0;
-  double p2DPhi20ft = 2*M_PI;
-  double Tank20X=0.0;
-  double Tank20Y=0.0;
-  double Tank20Z= p2DZ - p2DZ20ft;
-
-  double p2Rmin201ft = 0.0;
-  double p2Rmax201ft = 25.0*30.0*cm;
-  double p2DZ201ft = 2.0*30.0*0.5*cm;
-  double p2SPhi201ft = 0.0;
-  double p2DPhi201ft = 2*M_PI;
-  double Tank201X = 0.0;
-  double Tank201Y = 0.0;
-  double Tank201Z = p2DZ201ft - p2DZ;
-
-
-
-//rp, cylinder for water tube start
-  double tubeRout = 3.0*30.0*cm;
-  double tubeRin = 0.0;
-  double tubeLen = 89.0*30.0*0.5*cm;
-  double tubeStartAngle = 0.0;
-  double tubeSpanningAngle = 2.0*M_PI;
-  double tubeX = 0.0;
-  double tubeY = 0.0;
-  double tubeZ = 89.0*30.0*0.5*cm - TowerLen;
-//rp, cylinder for water tube end
-
-//rp, cylinder for water inside tube start
-  double tubeWaterRout = tubeRout -0.25*2.54*cm;
-  double tubeWaterRin = 0.0;
-  double tubeWaterLen = tubeLen - 0.25*2.54*cm;
-  double Sphi = 0.0;
-  double SThe = 2.0*M_PI;
-  double tubeWaterX = 0.0;
-  double tubeWaterY = 0.0;
-  double tubeWaterZ = 0.0;
-//rp, cylinder for water inside tube end
-
-//rp, box1&2 for subtraction for outer tank(iron)
-  double length1 = 60.0*30.0*0.5*cm;
-  double width1 = 60.0*30.0*0.5*cm;
-  double height1 = 7.0*30.0*0.5*cm;
-//rp, box3&4 for subtraction for inner watertank(water)
-  double length2 = 60.0*30.0*0.5*cm;
-  double width2 = 60.0*30.0*0.5*cm;
-  double height2 = height1 + 0.25*2.54*cm;
-/*
-//rp, box5 for subtraction for bottom watertank(water 13ft)
-  double length3 = 60.0*30.0*0.5*cm;
-  double width3 = 60.0*30.0*0.5*cm;
-  double height3 = 12.0*30.0*0.5*cm;
-//rp, box6 for subtraction for bottom watertank(water 13ft)
-  double length4 = 60.0*30.0*0.5*cm;
-  double width4 = 60.0*30.0*0.5*cm;
-  double height4 = 28.0*30.0*0.5*cm;
-//rp, box7 for subtraction for WatTank3SSub(13ft)
-  double length5 = 60.0*30.0*0.5*cm;
-  double width5 = 60.0*30.0*0.5*cm;
-  double height5 = height1 + 0.25*2.54*cm;
-*/
-/*
-//rp, box8 for subtraction for bottom watertank(water 15ft)
-  double length6 = 60.0*30.0*0.5*cm;
-  double width6 = 60.0*30.0*0.5*cm;
-  double height6 = 10.0*30.0*0.5*cm;
-//rp, box9 for subtraction for bottom watertank(water 15ft)  
-  double length7 = 60.0*30.0*0.5*cm;
-  double width7 = 60.0*30.0*0.5*cm;
-  double height7 = 30.0*30.0*0.5*cm;
-//rp, box10 for subtraction for bottom watertank(water 15ft) 
-  double length8 = 60.0*30.0*0.5*cm;
-  double width8 = 60.0*30.0*0.5*cm;
-  double height8 = height1 + 0.25*2.54*cm;
-*/
-///////// Getting water and iron materials //////  
-  auto tankMaterial  = G4Material::GetMaterial("iron");
-  auto waterMaterial  = G4Material::GetMaterial("Water");
-
 ////// outer mother world for tank and water volume inside tower //////
   auto TowerS
     = new G4Tubs("Tower",TowerRin,TowerRout,TowerLen,0.0*deg,360.0*deg);
@@ -392,56 +343,51 @@ G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()
 
   new G4PVPlacement(
                  0,                // no rotation
-                 G4ThreeVector(TowerX,TowerY,TowerZ),  // 
-                 TowerLV,          // its logical volume                         
-                 "Tower",    // its name
+                 G4ThreeVector(TowerX,TowerY,TowerZ),  // Its placement in the world volume
+                 TowerLV,          // its logical volume              
+                 "Tower",		   // its name
                  worldLV,          // its mother  volume
-                 false,            // no boolean operation
+                 false,            // no boolean operation (true for boolean operation)
                  0,                // copy number
                  fCheckOverlaps);  // checking overlaps 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 /// Outer tank shell(iron) /////////////////////////////////////////////////////////////////////////////
   G4RotationMatrix* tankRot = new G4RotationMatrix; // Rotates X and Z axes only
-  double tankangle=M_PI;   // no camera rotation. 
-  std::cout<<"B4DetectorConstruction:  tankangle="<<tankangle<<std::endl;
-  tankRot -> rotateX(0.*rad);
-  // stationRot -> rotateY(M_PI/4.*rad);
-  tankRot -> rotateY(-tankangle*rad);
-  tankRot -> rotateZ(0.*rad);
+  G4double tankangle=M_PI;   // rotating Tank1 180 degrees. 
+  //std::cout<<"B4DetectorConstruction:  tankangle="<<tankangle<<std::endl;
+  tankRot -> rotateX(0.*rad); // rotating specific axis
+  tankRot -> rotateY(-tankangle*rad); // rotating specific axis
+  tankRot -> rotateZ(0.*rad); // rotating specific axis
   
-  auto box1
-    = new G4Box("aBoxSolid1", length1, width1, height1);
 
-  auto Sphere1S // changed from TankS
-    = new G4Sphere("Tank",pRmin,pRmax,pSPhi,pDPhi,pSTheta,pDTheta);
+  auto Tank1S // creating solid half spherical shell for top
+    = new G4Sphere("Tank1",pRmin,pRmax,pSPhi,pDPhi,pSTheta,pDTheta);
 
-  auto Tank1Sub
-    = new G4SubtractionSolid("Sphere1S - box1",Sphere1S,box1);
-
-  auto Tank1LV
-    = new G4LogicalVolume(Tank1Sub, tankMaterial, "Tank1Sub");
-
+  auto Tank1LV // creating logical volume
+    = new G4LogicalVolume(Tank1S, tankMaterial, "Tank1");
+  // creating placement for logical volume
   new G4PVPlacement(
-                 tankRot,                // no rotation
-                 G4ThreeVector(TankX,TankY,TankZ),  // at (0,0,0)
+                 tankRot,                // rotating Tank1
+                 G4ThreeVector(TankX,TankY,TankZ), // placement in world
                  Tank1LV,          // its logical volume                         
                  "Tank1",    // its name
                  TowerLV,          // its mother  volume
-                 true,            // boolean operation
+                 false,            // boolean operation
                  0,                // copy number
                  fCheckOverlaps);  // checking overlaps 
 
 
-  auto Tank2S
+
+  auto Tank2S // creating solid cylinder shell
     = new G4Tubs("Tank2",p2Rmin,p2Rmax,p2DZ,p2SPhi,p2DPhi);
 
-  auto Tank2LV
-    = new G4LogicalVolume(Tank2S,tankMaterial,"MidTank");
-
+  auto Tank2LV // creating logical volume
+    = new G4LogicalVolume(Tank2S,tankMaterial,"Tank2S");
+  // creating placement for logical volume
   new G4PVPlacement(
                  0,                // no rotation
-                 G4ThreeVector(Tank2X,Tank2Y,Tank2Z),  // at (0,0,0)
+                 G4ThreeVector(Tank2X,Tank2Y,Tank2Z),  // placement in world
                  Tank2LV,          // its logical volume
                  "Tank2",    // its name
                  TowerLV,          // its mother  volume
@@ -450,64 +396,56 @@ G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()
                  fCheckOverlaps);  // checking overlaps
 
 
-  auto box2
-    = new G4Box("aBoxSolid2", length1, width1, height1);
-
-  auto Tank3S
+  auto Tank3S // creating solid half spherical shell for bottom
     = new G4Sphere("Tank3",p3Rmin,p3Rmax,p3SPhi,p3DPhi,p3STheta,p3DTheta);
 
-  auto Tank3Sub
-    = new G4SubtractionSolid("Tank3S - box2",Tank3S,box2);
-
-  auto Tank3LV
-    = new G4LogicalVolume(Tank3Sub, tankMaterial, "Tank3Sub");
-
+  auto Tank3LV // creating logical volume
+    = new G4LogicalVolume(Tank3S, tankMaterial, "Tank3S");
+  // creating placement for logical volume
   new G4PVPlacement(
                  0,                // no rotation
-                 G4ThreeVector(Tank3X,Tank3Y,Tank3Z),  // at (0,0,0)
+                 G4ThreeVector(Tank3X,Tank3Y,Tank3Z),  // placement in world
                  Tank3LV,          // its logical volume                         
                  "Tank3",    // its name
                  TowerLV,          // its mother  volume
-                 true,            // boolean operation
+                 false,            // no boolean operation
                  0,                // copy number
                  fCheckOverlaps);  // checking overlaps 
 
 /////////////////////////// Outer tank(iron) end ////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////// top insidetank(usually filled with AIR(red color)) ////////////
-  auto box3
-    = new G4Box("aBoxSolid3", length2, width2, height2);
+///////////////////////// Inside water volumes created ////////////
+  G4RotationMatrix* wattankRot = new G4RotationMatrix; // Rotates X and Z axes only
+  G4double wattankangle=M_PI;   // rotating Tank1 180 degrees. 
+  //std::cout<<"B4DetectorConstruction:  tankangle="<<tankangle<<std::endl;
+  wattankRot -> rotateX(0.*rad); // rotating specific axis
+  wattankRot -> rotateY(-wattankangle*rad); // rotating specific axis
+  wattankRot -> rotateZ(0.*rad); // rotating specific axis
 
-  auto WatSphere1S
-    = new G4Sphere("WatTank",pRminwat,pRmaxwat,pSPhiwat,pDPhiwat,pSThetawat,pDThetawat);
+  auto WatTank1S // creating solid half spherical shape for water inside
+    = new G4Sphere("WatTank1",pRminwat,pRmaxwat,pSPhiwat,pDPhiwat,pSThetawat,pDThetawat);
 
-  auto WatTank1Sub
-    = new G4SubtractionSolid("WatSphere1S - box",WatSphere1S,box3);
-
-  auto WatTank1LV
-    = new G4LogicalVolume(WatTank1Sub, defaultMaterial, "Tank1Sub");
-
+  auto WatTank1LV // creating logical volume
+    = new G4LogicalVolume(WatTank1S, defaultMaterial, "WatTank1");// defaultMaterial changes volume to air, waterMaterial changes to water
+  // creating placement for logical volume
   new G4PVPlacement(
-                 0,                // no rotation
-                 G4ThreeVector(TankwatX,TankwatY,TankwatZ),  // at (0,0,0)
+                 0,                // rotation
+                 G4ThreeVector(TankwatX,TankwatY,TankwatZ),  // at (0,0,0) inside middle of mother volume
                  WatTank1LV,          // its logical volume                         
                  "WatTank1",    // its name
                  Tank1LV,          // its mother  volume
-                 true,            // boolean operation
+                 false,            // no boolean operation
                  0,                // copy number
                  fCheckOverlaps);  // checking overlaps 
 
-////////////////// top insidetank(Usually filled with AIR(red color)) end /////////////
-/*////////////////////////_Middle_tank_empty usually////////////////////////////////////////////////////////////////
-  auto WatTank2S
+  auto WatTank2S // creating solid middle cylinder for water inside
     = new G4Tubs("WatTank2",p2Rminwat,p2Rmaxwat,p2DZwat,p2SPhiwat,p2DPhiwat);
 
-  auto WatTank2LV
-    = new G4LogicalVolume(WatTank2S,defaultMaterial,"watMidTank");
+  auto WatTank2LV // creating logical volume
+    = new G4LogicalVolume(WatTank2S,defaultMaterial,"WatTank2S");// defaultMaterial changes volume to air, waterMaterial changes to water
 
   new G4PVPlacement(
                  0,                // no rotation
-                 G4ThreeVector(TankwatX,TankwatY,TankwatZ),  // at (0,0,0)
+                 G4ThreeVector(Tankwat2X,Tankwat2Y,Tankwat2Z),  // at (0,0,0) inside middle of mother volume
                  WatTank2LV,          // its logical volume
                  "WatTank2",    // its name
                  Tank2LV,          // its mother  volume
@@ -516,191 +454,31 @@ G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()
                  fCheckOverlaps);  // checking overlaps
 
 
-*/////////////////////////_Middle_tank_fullwaterEND_////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////
-//////////////////////// bottom inside tank half sphere(Usually filled with water(blue))/////
-
-  auto box4
-    = new G4Box("aBoxSolid4", length2, width2, height2);
-
-  auto WatTank3S
+  auto WatTank3S // creating solid bottom half sphere for water inside
     = new G4Sphere("WatTank3",p3Rminwat,p3Rmaxwat,p3SPhiwat,p3DPhiwat,p3SThetawat,p3DThetawat);
 
-  auto WatTank3Sub
-    = new G4SubtractionSolid("WatTank3S - box2",WatTank3S,box4);
-
-  auto WatTank3LV
-    = new G4LogicalVolume(WatTank3Sub, waterMaterial, "Tank3Sub");
+  auto WatTank3LV // creating logical volume
+    = new G4LogicalVolume(WatTank3S, waterMaterial, "WatTank3S");// defaultMaterial changes volume to air, waterMaterial changes to water
 
   new G4PVPlacement(
                  0,                // no rotation
-                 G4ThreeVector(TankwatX,TankwatY,TankwatZ),  // at (0,0,0)
+                 G4ThreeVector(Tankwat3X,Tankwat3Y,Tankwat3Z),  // at (0,0,0) inside middle of mother volume
                  WatTank3LV,          // its logical volume                         
                  "WatTank3",    // its name
                  Tank3LV,          // its mother  volume
-                 true,            // boolean operation
+                 false,            // boolean operation
                  0,                // copy number
-				 fCheckOverlaps);
+		         fCheckOverlaps);
 
-
-///////////////////// bottom inside tank half sphere(Usually filled with water(blue) end ///////////////////////////////////////////////////////////////////////
-
-///////////////////_20ft_water_(make WatTank2LV defaultMaterial for AIR and keep WatTank21LV waterMaterial for water inside at 20ft)////////////////////////////////////////////(for making 18ft make both defaultMaterial for AIR and keep WatTank3LV waterMaterial for water /////////
-
-  auto WatTank2S
-    = new G4Tubs("WatTank2",p2Rmin20ft,p2Rmax20ft,p2DZ20ft,p2SPhi20ft,p2DPhi20ft);
-
-  auto WatTank2LV
-    = new G4LogicalVolume(WatTank2S,defaultMaterial,"MidTank");   //SAS Comment: Ask Raul
-
-  new G4PVPlacement(
-                 0,                // no rotation
-                 G4ThreeVector(Tank20X,Tank20Y,Tank20Z),  // at (0,0,0)
-                 WatTank2LV,          // its logical volume
-                 "WatTank2",    // its name
-                 Tank2LV,          // its mother  volume
-                 false,            // no boolean operation
-                 0,                // copy number
-				 fCheckOverlaps);
-
-
-  auto WatTank21S
-    = new G4Tubs("WatTank21",p2Rmin201ft,p2Rmax201ft,p2DZ201ft,p2SPhi201ft,p2DPhi201ft);
-
-  auto WatTank21LV
-    = new G4LogicalVolume(WatTank21S,waterMaterial,"WatTank21");
-
-  new G4PVPlacement(
-                 0,                // no rotation
-                 G4ThreeVector(Tank201X,Tank201Y,Tank201Z),  // at (0,0,0)
-                 WatTank21LV,          // its logical volume
-                 "WatTank21",    // its name
-                 Tank2LV,          // its mother  volume
-                 false,            // no boolean operation
-                 0,                // copy number
-				 fCheckOverlaps);
-
-////////////////////// 20ft and 18ft change end///////////////////////////////////////////////////////////////////////
-
-///////////////////_13ft_water_(comment this section out and uncomment the 20ft water when needed)/////////////////////////////////////////////////////////////////////////
-/*
-  auto box6
-    = new G4Box("aBoxSolid6", length4, width4, height4);
-
-  auto WatTank3S
-    = new G4Sphere("WatTank3",p3Rminwat,p3Rmaxwat,p3SPhiwat,p3DPhiwat,p3SThetawat,p3DThetawat);
-
-  auto WatTank3Sub
-    = new G4SubtractionSolid("WatTank3S - box6",WatTank3S,box6,0,G4ThreeVector(0.0,0.0,-40.0*30.0*0.5*cm));
-
-  auto box7
-	= new G4Box("aBoxSolid6", length5, width5, height5);
-
-  auto WatTank3SSub
-    = new G4SubtractionSolid("WatTank3Sub - box7",WatTank3Sub,box7);
-
-  auto WatTank3LV
-    = new G4LogicalVolume(WatTank3SSub, defaultMaterial, "WatTank3SSub");
-
-  new G4PVPlacement(
-                 0,                // no rotation
-                 G4ThreeVector(TankwatX,TankwatY,TankwatZ),  // at (0,0,0)
-                 WatTank3LV,          // its logical volume                         
-                 "WatTank3",    // its name
-                 Tank3LV,          // its mother  volume
-                 true,            // boolean operation
-                 0,                // copy number
-                 fCheckOverlaps);  // checking overlaps
-
-
-  auto box5
-    = new G4Box("aBoxSolid5", length3, width3, height3);
-
-  auto WatTank31S
-    = new G4Sphere("WatTank31S",p3Rminwat,p3Rmaxwat,p3SPhiwat,p3DPhiwat,p3SThetawat,p3DThetawat);
-
-  auto WatTank31Sub
-    = new G4SubtractionSolid("WatTank31S - box5",WatTank31S,box5);
-
-  auto WatTank31LV
-    = new G4LogicalVolume(WatTank31Sub, waterMaterial, "WatTank31Sub");
-
-  new G4PVPlacement(
-                 0,                // no rotation
-                 G4ThreeVector(TankwatX,TankwatY,TankwatZ),  // at (0,0,0)
-                 WatTank31LV,          // its logical volume                         
-                 "WatTank31",    // its name
-                 Tank3LV,          // its mother  volume
-                 true,            // boolean operation
-                 0,                // copy number
-                 fCheckOverlaps);  // checking overlaps
-
-
-*////////////////////_13ft_water_END/////////////////////////////////////////////////////////////////////
-
-/*///////////////////////rp-_15ft_water_start_(comment out when using the 20 or 13 feet)////////////////////
-
-  auto box9
-    = new G4Box("aBoxSolid9", length7, width7, height7);
-
-  auto WatTank3S
-    = new G4Sphere("WatTank3",p3Rminwat,p3Rmaxwat,p3SPhiwat,p3DPhiwat,p3SThetawat,p3DThetawat);
-
-  auto WatTank3Sub
-    = new G4SubtractionSolid("WatTank3S - box9",WatTank3S,box9,0,G4ThreeVector(0.0,0.0,-40.0*30.0*0.5*cm));
-
-  auto box10
-	= new G4Box("aBoxSolid6", length8, width8, height8);
-
-  auto WatTank3SSub
-    = new G4SubtractionSolid("WatTank3Sub - box10",WatTank3Sub,box10);
-
-  auto WatTank3LV
-    = new G4LogicalVolume(WatTank3SSub, defaultMaterial, "WatTank3SSub");
-
-  new G4PVPlacement(
-                 0,                // no rotation
-                 G4ThreeVector(TankwatX,TankwatY,TankwatZ),  // at (0,0,0)
-                 WatTank3LV,          // its logical volume                         
-                 "WatTank3",    // its name
-                 Tank3LV,          // its mother  volume
-                 true,            // boolean opertion
-                 0,                // copy number
-                 fCheckOverlaps);  // checking overlaps
-
-
-  auto box8
-    = new G4Box("aBoxSolid8", length6, width6, height6);
-
-  auto WatTank31S
-    = new G4Sphere("WatTank31S",p3Rminwat,p3Rmaxwat,p3SPhiwat,p3DPhiwat,p3SThetawat,p3DThetawat);
-
-  auto WatTank31Sub
-    = new G4SubtractionSolid("WatTank31S - box8",WatTank31S,box8);
-
-  auto WatTank31LV
-    = new G4LogicalVolume(WatTank31Sub, waterMaterial, "WatTank31Sub");
-
-  new G4PVPlacement(
-                 0,                // no rotation
-                 G4ThreeVector(TankwatX,TankwatY,TankwatZ),  // at (0,0,0)
-                 WatTank31LV,          // its logical volume                         
-                 "WatTank31",    // its name
-                 Tank3LV,          // its mother  volume
-                 true,            // boolean operation
-                 0,                // copy number
-                 fCheckOverlaps);  // checking overlaps
-
-*////////////////////////rp-_15ft_water_END_////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-  auto tubeS
+  auto tubeS // creating solid pipe under water tank
     = new G4Tubs("tubeS", tubeRin, tubeRout, tubeLen, tubeStartAngle, tubeSpanningAngle);
-  auto tubeLV
+  auto tubeLV // creating logical volume
     = new G4LogicalVolume(tubeS,tankMaterial,"tube");
-
+  // creating placement for tube
   new G4PVPlacement(
 				 0,                // no rotation
-                 G4ThreeVector(tubeX,tubeY,tubeZ),  // at (0,0,0)
+                 G4ThreeVector(tubeX,tubeY,tubeZ),  // position of tube inside tower volume
                  tubeLV,          // its logical volume
                  "tube",    // its name
                  TowerLV,          // its mother  volume
@@ -708,15 +486,15 @@ G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()
                  0,                // copy number
                  fCheckOverlaps);  // checking overlaps
 
-  auto tubeWaterS
+  auto tubeWaterS // creating solid water volume inside tube volume
     = new G4Tubs("tubeWater",tubeWaterRin,tubeWaterRout,tubeWaterLen,Sphi,SThe);
 
-  auto tubeWaterLV
+  auto tubeWaterLV // creating logical volume
     = new G4LogicalVolume(tubeWaterS, waterMaterial, "tubeWater"); //water inside tube
-
+  // creating placement for water inside tube
   new G4PVPlacement(
 				 0,                // no rotation
-                 G4ThreeVector(tubeWaterX,tubeWaterY,tubeWaterZ),  // at (0,0,0)
+                 G4ThreeVector(tubeWaterX,tubeWaterY,tubeWaterZ),  // at (0,0,0) the middle of tube volume
                  tubeWaterLV,          // its logical volume
                  "tubeWater",    // its name
                  tubeLV,          // its mother  volume
@@ -724,6 +502,72 @@ G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()
                  0,                // copy number
                  fCheckOverlaps);  // checking overlaps
   
+///////////////// Ledge and legs //////////////////////////////////////////////////////////////////////
+
+  auto LedgeS // creating solid ledge volume going around the tank
+    = new G4Tubs("LedgeS", ledgeRin, ledgeRout, ledgeLen, ledgeSphi, ledgeSThe);
+  auto LedgeLV // creating logical volume
+    = new G4LogicalVolume(LedgeS,tankMaterial,"Ledge");
+
+  new G4PVPlacement(
+				 0,                // no rotation
+                 G4ThreeVector(ledgeX,ledgeY,ledgeZ),  // position inside tower volume
+                 LedgeLV,          // its logical volume
+                 "Ledge",    // its name
+                 TowerLV,          // its mother  volume
+                 false,            // no boolean operation
+                 0,                // copy number
+                 fCheckOverlaps);  // checking overlaps
+
+  auto LegS // creating solid leg volume representing legs holding water tower up
+    = new G4Tubs("LegS", legRin, legRout, legLen, legSphi, legSThe);
+  auto LegLV // logical volume
+    = new G4LogicalVolume(LegS,tankMaterial,"Leg");
+
+  new G4PVPlacement(
+				 0,                // no rotation
+                 G4ThreeVector(legX[0],0.0,legZ),  // placement for leg on one side of tank positioned inside tower volume
+                 LegLV,          // its logical volume
+                 "Leg",    // its name
+                 TowerLV,          // its mother  volume
+                 false,            // no boolean operation
+                 0,                // copy number 1st copy
+                 fCheckOverlaps);  // checking overlaps
+
+
+  new G4PVPlacement(
+				 0,                // no rotation
+                 G4ThreeVector(legX[1],0.0,legZ),  // placement for leg on one side of tank positioned inside tower volume
+                 LegLV,          // its logical volume
+                 "Leg2",    // its name
+                 TowerLV,          // its mother  volume
+                 false,            // no boolean operation
+                 1,                // copy number 2nd copy
+                 fCheckOverlaps);  // checking overlaps
+
+
+  new G4PVPlacement(
+				 0,                // no rotation
+                 G4ThreeVector(0.0,legY[0],legZ),  // placement for leg on one side of tank positioned inside tower volume
+                 LegLV,          // its logical volume
+                 "Leg3",    // its name
+                 TowerLV,          // its mother  volume
+                 false,            // no boolean operation
+                 2,                // copy number 3rd copy
+                 fCheckOverlaps);  // checking overlaps
+
+
+  new G4PVPlacement(
+				 0,                // no rotation
+                 G4ThreeVector(0.0,legY[1],legZ),  // placement for leg on one side of tank positioned inside tower volume
+                 LegLV,          // its logical volume
+                 "Leg4",    // its name
+                 TowerLV,          // its mother  volume
+                 false,            // no boolean operation
+                 3,                // copy number 4th copy
+                 fCheckOverlaps);  // checking overlaps
+
+
   //                               
   // SC8
   //  
@@ -732,19 +576,15 @@ G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()
   auto SC8SizeY= 200.*cm;  // a half width
   auto SC8SizeZ= 1000.*cm; // a half width
 
-  auto SC8S
-    = new G4Box("SC8",     // its name
-                 SC8SizeX, SC8SizeY, SC8SizeZ); // its size
+  auto SC8S // creating solid for holding detector inside
+    = new G4Box("SC8", SC8SizeX, SC8SizeY, SC8SizeZ);
                          
-  auto SC8LV
-    = new G4LogicalVolume(
-                 SC8S,     // its solid
-                 defaultMaterial,  // its material
-                 "SC8");   // its name
+  auto SC8LV // creating logical volume
+    = new G4LogicalVolume(SC8S, defaultMaterial, "SC8");
                                    
   new G4PVPlacement(
                  0,                // no rotation
-                 G4ThreeVector(),  // at (0,0,0)
+                 G4ThreeVector(),  // placement inside world volume
                  SC8LV,          // its logical volume                         
                  "SC8",    // its name
                  worldLV,          // its mother  volume
@@ -761,11 +601,12 @@ G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()
   G4double StationSizeZ  = 150.*cm;
 
   G4RotationMatrix* stationRot = new G4RotationMatrix; // Rotates X and Z axes only
-  double  angle = 0.0*M_PI/180.0;   // no camera rotation.
-  std::cout<<"B4DetectorConstruction:  angle="<<angle<<std::endl;
+//  std::cout<<"B4DetectorConstruction:  water tower, angle="<<angle<<std::endl;
+  G4double  angle=45.0*M_PI/180.0;   // rotating detecor to face the water tower (45 degrees)
+  //std::cout<<"B4DetectorConstruction:  angle="<<angle<<std::endl;
   stationRot -> rotateX(0.*rad);
   stationRot -> rotateY(-angle*rad);
-  stationRot -> rotateZ(0*rad);
+  stationRot -> rotateZ(0.*rad);
 
   auto Station1S
     = new G4Box("Station1",           // its name
@@ -788,10 +629,10 @@ G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()
 
 //   Reference Plane 1:  a thin horizontal plane at the center of station.
 
-auto RefPlane1S
+  auto RefPlane1S
      = new G4Box("RefPlane1",           // its name
                  StationSizeX/2-1.0, StationSizeY/2-1.0, 1.0); // 
-auto RefPlane1LV
+  auto RefPlane1LV
     = new G4LogicalVolume(
                  RefPlane1S,        // its solid
                  defaultMaterial, // its material
@@ -856,76 +697,34 @@ auto RefPlane1LV
                  false,            // no boolean operation
                  3,                // copy number
                  fCheckOverlaps);  // checking overlaps
-  std::cout<<"B4DetectorConstruction:  TrayPosZ2= "<<TrayPosZ[2]<<std::endl;
-  std::cout<<"B4DetectorConstruction:  TrayPosZ3= "<<TrayPosZ[3]<<std::endl;
- 
- //                               
+  //std::cout<<"B4DetectorConstruction:  TrayPosZ2= "<<TrayPosZ[2]<<std::endl;
+  //std::cout<<"B4DetectorConstruction:  TrayPosZ3= "<<TrayPosZ[3]<<std::endl;
+  //                               
   // Individual bar
   //
-
-  G4double shape2_dxa = BarSizeX/2.0, shape2_dxb = BarSizeX/2.0;
-  G4double shape2_dya = 0*cm, shape2_dyb = BarSizeY/2.0;
-  G4double shape2_dz  = BarSizeZ/2.0;
-
-  //auto sBARS
-  //  = new G4Box("sBAR",             // its name
-  //               BarSizeX/2.0, BarSizeY/2.0, BarSizeZ/2.0); // its size
-
-// SAS Added 2020 
-  G4RotationMatrix* scintRot = new G4RotationMatrix; // Rotates X and Z axes only
-  double scintAngle=M_PI;   // no camera rotation. 
-  scintRot -> rotateX(0.*rad);
-  scintRot -> rotateY(-scintAngle*rad);
-  scintRot -> rotateZ(0.*rad);
-
-  G4Trd* sBARS =
-    new G4Trd("sBAR",                      //its name
-              1*shape2_dxa, 1*shape2_dxb,
-              1*shape2_dya, 1*shape2_dyb, 1*shape2_dz); //its size
-  auto sBARLV1
-    = new G4LogicalVolume(
-                 sBARS,             // its solid
-                 sBarMaterial,      // its material
-                 "sBAR");           // its name                                                                                                                                                                    
-
-  auto sBARLV2
+  auto sBARS
+    = new G4Box("sBAR",             // its name
+                 BarSizeX/2.0, BarSizeY/2.0, BarSizeZ/2.0); // its size
+                         
+  auto sBARLV
     = new G4LogicalVolume(
                  sBARS,             // its solid
                  sBarMaterial,      // its material
                  "sBAR");           // its name
 
-
   for (int i=0; i<nofBars; i++) {
     double yval=-TraySizeY/2+BarSizeY/2.0/*+AirGap*/+(BarSizeY/*+AirGap*/)*float(i);
-  //  std::cout<<"  red bars:  "<<i<<" yval "<<yval<<std::endl;                    
+   // std::cout<<"  i  "<<i<<" yval "<<yval<<std::endl;                    
     new G4PVPlacement(
-                 scintRot,                // no rotation
+                 0,                // no rotation
                  G4ThreeVector(0.0,yval,0.0), // its position
-                 sBARLV1,            // its logical volume                         
+                 sBARLV,            // its logical volume                         
                  "sBAR",            // its name
                  Tray1LV,          // its mother  volume
                  false,            // no boolean operation
                  i,                // copy number
                  fCheckOverlaps);  // checking overlaps 
-    
-
   }
-
-  for (int i=0; i<nofBars-1; i++) {
-    double yval=-TraySizeY/2+BarSizeY+(BarSizeY)*float(i);
-  //  std::cout<<" blue bars:  "<<i<<" yval "<<yval-1.5<<std::endl;                    
-    new G4PVPlacement(
-                 0,                // no rotation
-                 G4ThreeVector(0.0,yval,0.0), // its position
-                 sBARLV2,            // its logical volume                         
-                 "sBAR",            // its name
-                 Tray1LV,          // its mother  volume
-                 false,            // no boolean operation
-                 i+16,                // copy number
-                 fCheckOverlaps);  // checking overlaps 
-
- }
-
   std::cout<<"B4DetectorCOnstruction: nofBars="<<nofBars<<std::endl;
   //
   // print parameters
@@ -943,26 +742,41 @@ auto RefPlane1LV
 
   worldLV->SetVisAttributes(G4VisAttributes::GetInvisible());
 
+//  TowerLV->SetVisAttributes(G4VisAttributes::GetInvisible());
+//  SC8LV->SetVisAttributes(G4VisAttributes::GetInvisible());
+//  Station1LV->SetVisAttributes(G4VisAttributes::GetInvisible()); 
+//  Tray1LV->SetVisAttributes(G4VisAttributes::GetInvisible());
+//  Tank1LV->SetVisAttributes(G4VisAttributes::GetInvisible());
+//  Tank2LV->SetVisAttributes(G4VisAttributes::GetInvisible());
+//  Tank3LV->SetVisAttributes(G4VisAttributes::GetInvisible());
+//  Tnk1WaterLV->SetVisAttributes(G4VisAttributes::GetInvisible());
+//  MidTankLV->SetVisAttributes(G4VisAttributes::GetInvisible());
+//  MidWatTankLV->SetVisAttributes(G4VisAttributes::GetInvisible());
+//  tubeLV->SetVisAttributes(G4VisAttributes::GetInvisible());
+//  tubeWaterLV->SetVisAttributes(G4VisAttributes::GetInvisible());
+//  BottomUnionLV->SetVisAttributes(G4VisAttributes::GetInvisible());
+//  ftwaterLV->SetVisAttributes(G4VisAttributes::GetInvisible());
+
+// tank=green, waterinside=blue, airinside=red
+//
   Station1LV->SetVisAttributes(G4VisAttributes::GetInvisible());
   worldLV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(0.0,0.0,1.0))); // blue
-//  TowerLV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(1.0,0.0,0.0))); // red 
+  TowerLV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(1.0,0.0,0.0))); // red
   Tank3LV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(0.0,1.0,0.0))); //  green
   Tank1LV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(0.0,1.0,0.0))); //  green
-  WatTank1LV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(1.0,0.0,0.0))); // red 
-  WatTank2LV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(1.0,0.0,0.0))); // blue
+  WatTank1LV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(1.0,0.0,0.0))); // red
+  WatTank2LV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(1.0,0.0,0.0))); // red
   Tank2LV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(0.0,1.0,0.0))); //  green
-  WatTank3LV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(0.0,0.0,1.0))); //  blue
-//  WatTank21LV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(0.0,.0,1.0))); //  blue                                                                   
-//  ftwaterLV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(1.0,0.0,0.0))); //  blue
-//  AIRTankUnionLV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(0.0,0.0,1.0))); //  blue
+  WatTank3LV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(1.0,0.0,0.0))); //  blue
   tubeLV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(0.0,1.0,0.0))); // green
-//  tubeWaterLV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(0.0,0.0,1.0))); // blue
-//  SC8LV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(0.45,0.25,0.0)));
-  // Box1LV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(0.0,1.0,0.0))); //  
+  tubeWaterLV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(0.0,0.0,1.0))); // blue
+  LedgeLV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(0.0,1.0,0.0))); // green
+  LegLV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(0.0,1.0,0.0))); // green
+  SC8LV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(0.45,0.25,0.0)));
   Station1LV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(0.0,1.0,0.0)));
-//  Tray1LV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(0.0,0.0,0.0)));
-  sBARLV2->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(0.0,0.0,1.0))); //blue // SAS 2020 New //TOP
-  sBARLV1->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(1.0,0.0,0.0)));  //red  //SAS 2020 //BOTTOM
+  Tray1LV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(0.0,0.0,0.0)));
+  sBARLV->SetVisAttributes(new G4VisAttributes(TRUE,G4Colour(1.0,0.0,0.0)));
+
 
   //
   // Always return the physical World

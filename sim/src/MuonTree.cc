@@ -77,7 +77,7 @@ MuonTree::MuonTree(int dummy){
    
    // define root tree...
    tree=new TTree("tree","Cosmic Muon Tree");
-    new tree;
+    //new tree;
 
     tree->Branch("trigger"        ,&mTrigger     , "trigger/I" );
     tree->Branch("nGenPar"        ,&mNGenPar     , "nGenPar/I" );
