@@ -425,6 +425,8 @@ CMakeFiles/exampleB4a.dir/src/B4DetectorConstruction.cc.o: /Users/sshanto/hep/g4
 CMakeFiles/exampleB4a.dir/src/B4DetectorConstruction.cc.o: /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4OrderedTable.hh
 CMakeFiles/exampleB4a.dir/src/B4DetectorConstruction.cc.o: /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4PVPlacement.hh
 CMakeFiles/exampleB4a.dir/src/B4DetectorConstruction.cc.o: /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4PVReplica.hh
+CMakeFiles/exampleB4a.dir/src/B4DetectorConstruction.cc.o: /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4Paraboloid.hh
+CMakeFiles/exampleB4a.dir/src/B4DetectorConstruction.cc.o: /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4Paraboloid.icc
 CMakeFiles/exampleB4a.dir/src/B4DetectorConstruction.cc.o: /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4PhysicalConstants.hh
 CMakeFiles/exampleB4a.dir/src/B4DetectorConstruction.cc.o: /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4PhysicalVolumeStore.hh
 CMakeFiles/exampleB4a.dir/src/B4DetectorConstruction.cc.o: /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4PhysicsFreeVector.hh
@@ -462,6 +464,7 @@ CMakeFiles/exampleB4a.dir/src/B4DetectorConstruction.cc.o: /Users/sshanto/hep/g4
 CMakeFiles/exampleB4a.dir/src/B4DetectorConstruction.cc.o: /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4UImessenger.hh
 CMakeFiles/exampleB4a.dir/src/B4DetectorConstruction.cc.o: /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4UIparameter.hh
 CMakeFiles/exampleB4a.dir/src/B4DetectorConstruction.cc.o: /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4UItokenNum.hh
+CMakeFiles/exampleB4a.dir/src/B4DetectorConstruction.cc.o: /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4UParaboloid.hh
 CMakeFiles/exampleB4a.dir/src/B4DetectorConstruction.cc.o: /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4USphere.hh
 CMakeFiles/exampleB4a.dir/src/B4DetectorConstruction.cc.o: /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4UTubs.hh
 CMakeFiles/exampleB4a.dir/src/B4DetectorConstruction.cc.o: /Users/sshanto/hep/g4/geant4.10.06.p01-install/include/Geant4/G4UnionSolid.hh
