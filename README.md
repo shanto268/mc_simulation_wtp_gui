@@ -79,7 +79,7 @@ cd sim\
 ## Pictures showing the water tower, the telescope and the muon shower
 ![base](base.png)
 ![shower](shower.png)
-![shower1](shower 2.png)
+![shower1](shower2.png)
 
 
 
