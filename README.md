@@ -74,3 +74,12 @@ cd sim\
 ```bash
 . run_batch.sh
 ```
+
+# Interactive Simulation 
+## Pictures showing the water tower, the telescope and the muon shower
+![base](base.png)
+![shower](shower.png)
+![shower1](shower 2.png)
+
+
+
