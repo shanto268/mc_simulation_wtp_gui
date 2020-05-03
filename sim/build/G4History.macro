@@ -69,3 +69,315 @@
 /gui/addButton viewer "Flush viewer (= refresh + update)" "/vis/viewer/flush"
 /gui/addButton viewer "Update scene" "/vis/scene/notifyHandlers"
 /run/printProgress 100
+/vis/viewer/set/projection p
+/vis/viewer/refresh
+/vis/viewer/set/style w
+/vis/viewer/refresh
+/vis/viewer/set/hiddenEdge 0
+/vis/viewer/refresh
+/vis/viewer/set/style w
+/vis/viewer/refresh
+/vis/viewer/set/hiddenEdge 0
+/vis/viewer/refresh
+/vis/viewer/set/projection p
+/vis/viewer/refresh
+/vis/viewer/set/projection o
+/vis/viewer/refresh
+/vis/viewer/set/style s
+/vis/viewer/refresh
+/vis/viewer/set/hiddenEdge 0
+/vis/viewer/refresh
+/vis/set/touchable World 0 SC8 0 Station1 0
+/vis/set/touchable World 0 SC8 0 Station1 0
+/vis/set/touchable World 0 SC8 0 Station1 0 RefPlane1 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 9
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 9
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 9
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 9
+/vis/set/touchable World 0 SC8 0 Station1 0
+/vis/set/touchable World 0 SC8 0 Station1 0 RefPlane1 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 9
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 9
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 9
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 9
+/vis/set/touchable World 0 Tower 0 Ledge 0
+/vis/set/touchable World 0 Tower 0 Ledge 0
+/vis/set/touchable World 0 Tower 0 Ledge 0
+/vis/set/touchable World 0 Tower 0 tube 0 tubeWater 0
+/vis/set/touchable World 0 Tower 0 tube 0 tubeWater 0
+/vis/set/touchable World 0 Tower 0 tube 0 tubeWater 0
+/vis/set/touchable World 0 SC8 0 Station1 0
+/vis/set/touchable World 0 SC8 0 Station1 0
+/vis/set/touchable World 0 SC8 0 Station1 0 RefPlane1 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 9
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 9
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 9
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 9
+/vis/set/touchable World 0 SC8 0 Station1 0
+/vis/set/touchable World 0 SC8 0 Station1 0 RefPlane1 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 9
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 9
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 9
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 9
+/run/beamOn 500
+/vis/scene/notifyHandlers scene-0
+/run/beamOn 100
+/vis/set/touchable World 0 Tower 0 Leg3 2
+/vis/set/touchable World 0 Tower 0 Leg3 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 9
+/vis/set/touchable World 0 Tower 0 Leg4 3
+/vis/set/touchable World 0 SC8 0
+/vis/set/touchable World 0 SC8 0 Station1 0
+/vis/set/touchable World 0 SC8 0 Station1 0 RefPlane1 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 9
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 9
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 9
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 6
+/vis/set/touchable World 0 Tower 0 Leg3 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 9
+/vis/set/touchable World 0 Tower 0 Leg4 3
+/vis/set/touchable World 0 SC8 0
+/vis/set/touchable World 0 SC8 0 Station1 0
+/vis/set/touchable World 0 SC8 0 Station1 0 RefPlane1 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 0 sBAR 9
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 1 sBAR 9
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 6
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 7
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 8
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 2 sBAR 9
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 0
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 1
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 2
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 3
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 4
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 5
+/vis/set/touchable World 0 SC8 0 Station1 0 Tray1 3 sBAR 6
+/run/beamOn 10
+/run/beamOn 50
+/run/beamOn 20
+/run/beamOn 10
