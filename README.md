@@ -76,10 +76,22 @@ cd sim\
 ```
 
 # Interactive Simulation 
-## Pictures showing the water tower, the telescope and the muon shower
+Some example pictures showing the water tower, the telescope and the muon shower in the interactive simulation.
+
 ![base](base.png)
+
 ![shower](shower.png)
+
 ![shower1](shower2.png)
 
+# Batch Mode Simulation
+## Analysis of the physical processes
 
+![1s](hadron.png)
+
+![w2](materials.png)
+
+![w23](neutron.png)
+
+![1w23](params.png)
 
