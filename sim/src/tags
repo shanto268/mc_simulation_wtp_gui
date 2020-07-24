@@ -1,0 +1,108 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+B4DetectorConstruction	B4DetectorConstruction.cc	/^B4DetectorConstruction::B4DetectorConstruction()$/;"	f	class:B4DetectorConstruction
+B4RunAction	B4RunAction.cc	/^B4RunAction::B4RunAction()$/;"	f	class:B4RunAction
+B4aActionInitialization	B4aActionInitialization.cc	/^B4aActionInitialization::B4aActionInitialization$/;"	f	class:B4aActionInitialization
+B4aEventAction	B4aEventAction.cc	/^B4aEventAction::B4aEventAction()$/;"	f	class:B4aEventAction
+B4aSteppingAction	B4aSteppingAction.cc	/^B4aSteppingAction::B4aSteppingAction($/;"	f	class:B4aSteppingAction
+BeginOfEventAction	B4aEventAction.cc	/^void B4aEventAction::BeginOfEventAction(const G4Event* \/*event*\/)$/;"	f	class:B4aEventAction
+BeginOfRunAction	B4RunAction.cc	/^void B4RunAction::BeginOfRunAction(const G4Run* \/*run*\/)$/;"	f	class:B4RunAction
+Build	B4aActionInitialization.cc	/^void B4aActionInitialization::Build() const$/;"	f	class:B4aActionInitialization
+BuildForMaster	B4aActionInitialization.cc	/^void B4aActionInitialization::BuildForMaster() const$/;"	f	class:B4aActionInitialization
+CRYAbsFunction	CRYAbsFunction.cc	/^CRYAbsFunction::CRYAbsFunction(std::string name, CRYFunctionDict::functype type, $/;"	f	class:CRYAbsFunction
+CRYAbsParameter	CRYAbsParameter.cc	/^CRYAbsParameter::CRYAbsParameter(std::string data) {$/;"	f	class:CRYAbsParameter
+CRYBinning	CRYBinning.cc	/^CRYBinning::CRYBinning(std::string data) {$/;"	f	class:CRYBinning
+CRYCosLatitudeFunction	CRYCosLatitudeFunction.cc	/^CRYCosLatitudeFunction::CRYCosLatitudeFunction(std::string name, std::string data):$/;"	f	class:CRYCosLatitudeFunction
+CRYData	CRYData.cc	/^CRYData::CRYData(std::string file) {$/;"	f	class:CRYData
+CRYFromFile	PrimaryGeneratorAction.cc	/^void PrimaryGeneratorAction::CRYFromFile(G4String newValue)$/;"	f	class:PrimaryGeneratorAction
+CRYFunctionDict	CRYFunctionDict.cc	/^CRYFunctionDict::CRYFunctionDict() {$/;"	f	class:CRYFunctionDict
+CRYGenerator	CRYGenerator.cc	/^CRYGenerator::CRYGenerator(CRYSetup *setup) {$/;"	f	class:CRYGenerator
+CRYParamI	CRYParamI.cc	/^CRYParamI::CRYParamI(std::string data) :$/;"	f	class:CRYParamI
+CRYParameter	CRYParameter.cc	/^CRYParameter::CRYParameter(std::string data):$/;"	f	class:CRYParameter
+CRYParticle	CRYParticle.cc	/^CRYParticle::CRYParticle( CRYId id, int charge, double KE) {$/;"	f	class:CRYParticle
+CRYParticle	CRYParticle.cc	/^CRYParticle::CRYParticle( const CRYParticle& part) :$/;"	f	class:CRYParticle
+CRYPdf	CRYPdf.cc	/^CRYPdf::CRYPdf(std::string data) {$/;"	f	class:CRYPdf
+CRYPdf	CRYPdf.cc	/^CRYPdf::CRYPdf(std::string name,$/;"	f	class:CRYPdf
+CRYPrimary	CRYPrimary.cc	/^CRYPrimary::CRYPrimary(CRYUtils *utils, CRYData *data, $/;"	f	class:CRYPrimary
+CRYPrimarySpectrumFunction	CRYPrimarySpectrumFunction.cc	/^CRYPrimarySpectrumFunction::CRYPrimarySpectrumFunction(std::string name, std::string data):$/;"	f	class:CRYPrimarySpectrumFunction
+CRYSetup	CRYSetup.cc	/^CRYSetup::CRYSetup(std::string configData, std::string dataDir) {$/;"	f	class:CRYSetup
+CRYUtils	CRYUtils.cc	/^CRYUtils::CRYUtils() {$/;"	f	class:CRYUtils
+CRYWeightFunc	CRYWeightFunc.cc	/^CRYWeightFunc::CRYWeightFunc(CRYBinning *bins, std::vector<double> weights) {$/;"	f	class:CRYWeightFunc
+Construct	B4DetectorConstruction.cc	/^G4VPhysicalVolume* B4DetectorConstruction::Construct()$/;"	f	class:B4DetectorConstruction
+ConstructSDandField	B4DetectorConstruction.cc	/^void B4DetectorConstruction::ConstructSDandField()$/;"	f	class:B4DetectorConstruction
+DefineMaterials	B4DetectorConstruction.cc	/^void B4DetectorConstruction::DefineMaterials()$/;"	f	class:B4DetectorConstruction
+DefineVolumes	B4DetectorConstruction.cc	/^G4VPhysicalVolume* B4DetectorConstruction::DefineVolumes()$/;"	f	class:B4DetectorConstruction
+EndOfEventAction	B4aEventAction.cc	/^void B4aEventAction::EndOfEventAction(const G4Event* event)$/;"	f	class:B4aEventAction
+EndOfRunAction	B4RunAction.cc	/^void B4RunAction::EndOfRunAction(const G4Run* \/*run*\/)$/;"	f	class:B4RunAction
+FillRefPlane	B4aSteppingAction.cc	/^void B4aSteppingAction::FillRefPlane(const G4Step* step, int iflag) {$/;"	f	class:B4aSteppingAction
+FillSC8Particle	B4aSteppingAction.cc	/^SC8Particle B4aSteppingAction::FillSC8Particle(const G4Step* step) {$/;"	f	class:B4aSteppingAction
+GeneratePrimaries	PrimaryGeneratorAction.cc	/^void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)$/;"	f	class:PrimaryGeneratorAction
+InputCRY	PrimaryGeneratorAction.cc	/^void PrimaryGeneratorAction::InputCRY()$/;"	f	class:PrimaryGeneratorAction
+MuonTree	MuonTree.cc	/^MuonTree::MuonTree(int dummy){$/;"	f	class:MuonTree
+PDGid	CRYParticle.cc	/^int CRYParticle::PDGid() { $/;"	f	class:CRYParticle
+PrimaryGeneratorAction	PrimaryGeneratorAction.cc	/^PrimaryGeneratorAction::PrimaryGeneratorAction(const char *inputfile)$/;"	f	class:PrimaryGeneratorAction
+PrimaryGeneratorMessenger	PrimaryGeneratorMessenger.cc	/^PrimaryGeneratorMessenger::PrimaryGeneratorMessenger($/;"	f	class:PrimaryGeneratorMessenger
+PrintStep	B4aSteppingAction.cc	/^void B4aSteppingAction::PrintStep(const G4Step* step) {$/;"	f	class:B4aSteppingAction
+SetNewValue	PrimaryGeneratorMessenger.cc	/^void PrimaryGeneratorMessenger::SetNewValue($/;"	f	class:PrimaryGeneratorMessenger
+UpdateCRY	PrimaryGeneratorAction.cc	/^void PrimaryGeneratorAction::UpdateCRY(std::string* MessInput)$/;"	f	class:PrimaryGeneratorAction
+UserSteppingAction	B4aSteppingAction.cc	/^void B4aSteppingAction::UserSteppingAction(const G4Step* step)$/;"	f	class:B4aSteppingAction
+analyze	MuonTree.cc	/^void MuonTree::analyze(SC8edep edepSc8, vector<SC8Particle> part,$/;"	f	class:MuonTree
+bin	CRYBinning.cc	/^int CRYBinning::bin(double value) {$/;"	f	class:CRYBinning
+calcMaxPDF	CRYPrimary.cc	/^void CRYPrimary::calcMaxPDF() {$/;"	f	class:CRYPrimary
+draw	CRYPdf.cc	/^double CRYPdf::draw( CRYUtils *utils, int bin ) {$/;"	f	class:CRYPdf
+drop_from_path	muonSetup.sh-old	/^drop_from_path()$/;"	f
+endjob	MuonTree.cc	/^    void MuonTree::endjob(){$/;"	f	class:MuonTree
+fMagFieldMessenger	B4DetectorConstruction.cc	/^G4GlobalMagFieldMessenger* B4DetectorConstruction::fMagFieldMessenger = nullptr; $/;"	m	class:B4DetectorConstruction	file:
+fill	CRYParticle.cc	/^void CRYParticle::fill( CRYParticle::CRYId &id, int &q,$/;"	f	class:CRYParticle
+function	CRYFunctionDict.cc	/^CRYAbsFunction *CRYFunctionDict::function(std::string data) {$/;"	f	class:CRYFunctionDict
+genEvent	CRYGenerator.cc	/^std::vector<CRYParticle*>* CRYGenerator::genEvent() {$/;"	f	class:CRYGenerator
+genEvent	CRYGenerator.cc	/^void CRYGenerator::genEvent(std::vector<CRYParticle*> *retList) {$/;"	f	class:CRYGenerator
+getBinning	CRYData.cc	/^CRYBinning * CRYData::getBinning(std::string name) {$/;"	f	class:CRYData
+getBinningList	CRYData.cc	/^std::vector<std::string> CRYData::getBinningList(std::string substr) {$/;"	f	class:CRYData
+getFunction	CRYData.cc	/^CRYAbsFunction* CRYData::getFunction(std::string name) {$/;"	f	class:CRYData
+getFunctionList	CRYData.cc	/^std::vector<std::string> CRYData::getFunctionList(std::string substr) {$/;"	f	class:CRYData
+getParamI	CRYData.cc	/^CRYParamI* CRYData::getParamI(std::string name){$/;"	f	class:CRYData
+getParamIList	CRYData.cc	/^std::vector<std::string> CRYData::getParamIList(std::string substr) {$/;"	f	class:CRYData
+getParameter	CRYData.cc	/^CRYParameter* CRYData::getParameter(std::string name){$/;"	f	class:CRYData
+getParameterList	CRYData.cc	/^std::vector<std::string> CRYData::getParameterList(std::string substr) {$/;"	f	class:CRYData
+getPdf	CRYData.cc	/^CRYPdf* CRYData::getPdf(std::string name){$/;"	f	class:CRYData
+getPdfList	CRYData.cc	/^std::vector<std::string> CRYData::getPdfList(std::string substr) {$/;"	f	class:CRYData
+getPrimary	CRYPrimary.cc	/^CRYParticle* CRYPrimary::getPrimary() {$/;"	f	class:CRYPrimary
+isLeapYear	CRYSetup.cc	/^bool CRYSetup::isLeapYear(int yr)$/;"	f	class:CRYSetup
+m_func	RNGWrapper.cc	/^template double (CLHEP::HepRandomEngine::*RNGWrapper<CLHEP::HepRandomEngine>::m_func)(void);$/;"	v
+m_obj	RNGWrapper.cc	/^template CLHEP::HepRandomEngine* RNGWrapper<CLHEP::HepRandomEngine>::m_obj;$/;"	m	class:RNGWrapper	file:
+mean	CRYPdf.cc	/^std::vector<double> CRYPdf::mean() {$/;"	f	class:CRYPdf
+parseDate	CRYSetup.cc	/^double CRYSetup::parseDate(std::string date) {$/;"	f	class:CRYSetup
+partName	CRYUtils.cc	/^std::string CRYUtils::partName(CRYParticle::CRYId id) {$/;"	f	class:CRYUtils
+partialRates	CRYPrimary.cc	/^std::vector<double> CRYPrimary::partialRates(const CRYBinning *bins) const {$/;"	f	class:CRYPrimary
+partialRates	CRYPrimary.cc	/^std::vector<double> CRYPrimary::partialRates(const std::vector<double> *bins) const {$/;"	f	class:CRYPrimary
+print	CRYAbsFunction.cc	/^void CRYAbsFunction::print(std::ostream& o, bool printData) {$/;"	f	class:CRYAbsFunction
+print	CRYAbsParameter.cc	/^void CRYAbsParameter::print(std::ostream& o, bool printData) {$/;"	f	class:CRYAbsParameter
+print	CRYBinning.cc	/^void CRYBinning::print(std::ostream& o, bool printData) {$/;"	f	class:CRYBinning
+print	CRYData.cc	/^void CRYData::print(std::ostream& o, bool printData) {$/;"	f	class:CRYData
+print	CRYPdf.cc	/^void CRYPdf::print(std::ostream& o, bool printData) {$/;"	f	class:CRYPdf
+randomFlat	CRYUtils.cc	/^double CRYUtils::randomFlat(double min, double max) {$/;"	f	class:CRYUtils
+read	CRYData.cc	/^bool CRYData::read() {$/;"	f	class:CRYData
+readSetOfParams	CRYPdf.cc	/^void CRYPdf::readSetOfParams(std::string data) {$/;"	f	class:CRYPdf
+removeTrailingSpaces	CRYUtils.cc	/^std::string CRYUtils::removeTrailingSpaces(std::string input) {$/;"	f	class:CRYUtils
+setWeightFunc	CRYPrimary.cc	/^void CRYPrimary::setWeightFunc(double area, CRYWeightFunc *wf) {$/;"	f	class:CRYPrimary
+spaceTrimmer	CRYPdf.cc	/^std::string CRYPdf::spaceTrimmer(std::string str, int nskip) {$/;"	f	class:CRYPdf
+sum	CRYPdf.cc	/^std::vector<double> CRYPdf::sum() {$/;"	f	class:CRYPdf
+tmpRandom	CRYUtils.cc	/^double CRYUtils::tmpRandom() {$/;"	f	class:CRYUtils
+totalRate	CRYPrimary.cc	/^double CRYPrimary::totalRate() {$/;"	f	class:CRYPrimary
+value	CRYCosLatitudeFunction.cc	/^double CRYCosLatitudeFunction::value(double x) {$/;"	f	class:CRYCosLatitudeFunction
+value	CRYPrimarySpectrumFunction.cc	/^double CRYPrimarySpectrumFunction::value(double x) {$/;"	f	class:CRYPrimarySpectrumFunction
+weight	CRYWeightFunc.cc	/^double CRYWeightFunc::weight(double value) {$/;"	f	class:CRYWeightFunc
+weightBin	CRYWeightFunc.cc	/^double CRYWeightFunc::weightBin(unsigned int b) {$/;"	f	class:CRYWeightFunc
+~B4DetectorConstruction	B4DetectorConstruction.cc	/^B4DetectorConstruction::~B4DetectorConstruction()$/;"	f	class:B4DetectorConstruction
+~B4RunAction	B4RunAction.cc	/^B4RunAction::~B4RunAction()$/;"	f	class:B4RunAction
+~B4aActionInitialization	B4aActionInitialization.cc	/^B4aActionInitialization::~B4aActionInitialization()$/;"	f	class:B4aActionInitialization
+~B4aEventAction	B4aEventAction.cc	/^B4aEventAction::~B4aEventAction()$/;"	f	class:B4aEventAction
+~B4aSteppingAction	B4aSteppingAction.cc	/^B4aSteppingAction::~B4aSteppingAction()$/;"	f	class:B4aSteppingAction
+~MuonTree	MuonTree.cc	/^MuonTree::~MuonTree(){$/;"	f	class:MuonTree
+~PrimaryGeneratorAction	PrimaryGeneratorAction.cc	/^PrimaryGeneratorAction::~PrimaryGeneratorAction()$/;"	f	class:PrimaryGeneratorAction
+~PrimaryGeneratorMessenger	PrimaryGeneratorMessenger.cc	/^PrimaryGeneratorMessenger::~PrimaryGeneratorMessenger()$/;"	f	class:PrimaryGeneratorMessenger

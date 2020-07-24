@@ -7,6 +7,8 @@
 #include <cstdlib>   // for rand() on archer.
 #include <iomanip>   // for setw() in cout, 
 #include <vector>
+#include <iTunesLibrary/>
+
 
 #include "TFile.h"
 #include "TTree.h"
